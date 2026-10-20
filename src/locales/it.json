@@ -1,5 +1,6 @@
 {
   "tabs": {
+    "create": "Crea",
     "groups": "Gruppi",
     "people": "Persone",
     "profile": "Profilo"
@@ -116,6 +117,12 @@
     "noNameColumn": "Colonna «Nome» non trovata. Controlla la prima riga o usa il modello.",
     "preview": "Anteprima"
   },
+  "create": {
+    "title": "Crea gruppi",
+    "replaceTitle": "Sostituire i gruppi attuali?",
+    "replaceBody": "I gruppi attuali non sono salvati e andranno persi creandone di nuovi.",
+    "replace": "Crea nuovi"
+  },
   "groups": {
     "title": "Gruppi",
     "participants": "Partecipanti",
@@ -141,7 +148,6 @@
     "generate": "Crea gruppi",
     "generating": "Creazione…",
     "regenerate": "Rimescola",
-    "result": "Risultato",
     "resultHint": "Tocca una persona per spostarla in un altro gruppo.",
     "group": "Gruppo {n}",
     "members": "1 persona | {n} persone",
@@ -173,7 +179,10 @@
     "deleteSetBody": "Questa suddivisione salvata verrà eliminata. Le persone non cambiano.",
     "deletedSet": "Suddivisione eliminata",
     "notFound": "Questa suddivisione non esiste più.",
-    "generatedOn": "Creata il {date}"
+    "generatedOn": "Creata il {date}",
+    "savedShort": "Salvato",
+    "noCurrentTitle": "Ancora nessun gruppo",
+    "noCurrentBody": "Scegli i criteri in Crea e qui vedrai i gruppi da ritoccare, esportare o salvare."
   },
   "profile": {
     "title": "Profilo",

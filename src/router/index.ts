@@ -16,6 +16,7 @@ const router = createRouter({
     { path: '/', redirect: '/groups' },
     { path: '/login', component: () => import('@/views/LoginView.vue'), meta: { guest: true } },
     { path: '/register', component: () => import('@/views/RegisterView.vue'), meta: { guest: true } },
+    { path: '/create', component: () => import('@/views/CreateView.vue'), meta: { auth: true } },
     { path: '/groups', component: () => import('@/views/GroupsView.vue'), meta: { auth: true } },
     { path: '/groups/:id', component: () => import('@/views/GroupSetView.vue'), meta: { auth: true }, props: true },
     { path: '/people', component: () => import('@/views/PeopleView.vue'), meta: { auth: true } },

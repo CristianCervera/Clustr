@@ -1,5 +1,6 @@
 {
   "tabs": {
+    "create": "Créer",
     "groups": "Groupes",
     "people": "Personnes",
     "profile": "Profil"
@@ -116,6 +117,12 @@
     "noNameColumn": "Colonne « Prénom » introuvable. Vérifiez la première ligne ou utilisez le modèle.",
     "preview": "Aperçu"
   },
+  "create": {
+    "title": "Créer des groupes",
+    "replaceTitle": "Remplacer les groupes actuels ?",
+    "replaceBody": "Les groupes actuels ne sont pas enregistrés et seront perdus si vous en créez de nouveaux.",
+    "replace": "Créer de nouveaux"
+  },
   "groups": {
     "title": "Groupes",
     "participants": "Participants",
@@ -141,7 +148,6 @@
     "generate": "Créer les groupes",
     "generating": "Création…",
     "regenerate": "Mélanger à nouveau",
-    "result": "Résultat",
     "resultHint": "Touchez une personne pour la déplacer dans un autre groupe.",
     "group": "Groupe {n}",
     "members": "1 personne | {n} personnes",
@@ -173,7 +179,10 @@
     "deleteSetBody": "Cette répartition enregistrée sera supprimée. Les personnes ne changent pas.",
     "deletedSet": "Répartition supprimée",
     "notFound": "Cette répartition n'existe plus.",
-    "generatedOn": "Créée le {date}"
+    "generatedOn": "Créée le {date}",
+    "savedShort": "Enregistré",
+    "noCurrentTitle": "Pas encore de groupes",
+    "noCurrentBody": "Choisissez vos critères dans Créer : vos groupes apparaîtront ici pour les ajuster, les exporter ou les enregistrer."
   },
   "profile": {
     "title": "Profil",

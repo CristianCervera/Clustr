@@ -1,5 +1,6 @@
 {
   "tabs": {
+    "create": "Create",
     "groups": "Groups",
     "people": "People",
     "profile": "Profile"
@@ -116,6 +117,12 @@
     "noNameColumn": "Couldn't find the “First name” column. Check the first row or use the template.",
     "preview": "Preview"
   },
+  "create": {
+    "title": "Create groups",
+    "replaceTitle": "Replace the current groups?",
+    "replaceBody": "The current groups aren't saved and will be lost when you create new ones.",
+    "replace": "Create new"
+  },
   "groups": {
     "title": "Groups",
     "participants": "Participants",
@@ -141,7 +148,6 @@
     "generate": "Make Groups",
     "generating": "Making groups…",
     "regenerate": "Shuffle Again",
-    "result": "Result",
     "resultHint": "Tap a person to move them to another group.",
     "group": "Group {n}",
     "members": "1 person | {n} people",
@@ -173,7 +179,10 @@
     "deleteSetBody": "This saved grouping will be deleted. People aren't affected.",
     "deletedSet": "Grouping deleted",
     "notFound": "This grouping no longer exists.",
-    "generatedOn": "Created {date}"
+    "generatedOn": "Created {date}",
+    "savedShort": "Saved",
+    "noCurrentTitle": "No groups yet",
+    "noCurrentBody": "Choose your criteria in Create and your groups will show up here to adjust, export or save."
   },
   "profile": {
     "title": "Profile",

@@ -1,5 +1,6 @@
 {
   "tabs": {
+    "create": "Crear",
     "groups": "Grupos",
     "people": "Personas",
     "profile": "Perfil"
@@ -116,6 +117,12 @@
     "noNameColumn": "No se encuentra la columna «Nombre». Revisa la primera fila o usa la plantilla.",
     "preview": "Vista previa"
   },
+  "create": {
+    "title": "Crear grupos",
+    "replaceTitle": "¿Sustituir los grupos actuales?",
+    "replaceBody": "Los grupos actuales no están guardados y se perderán al crear otros nuevos.",
+    "replace": "Crear nuevos"
+  },
   "groups": {
     "title": "Grupos",
     "participants": "Participantes",
@@ -141,7 +148,6 @@
     "generate": "Generar grupos",
     "generating": "Generando…",
     "regenerate": "Volver a generar",
-    "result": "Resultado",
     "resultHint": "Toca a una persona para moverla a otro grupo.",
     "group": "Grupo {n}",
     "members": "1 persona | {n} personas",
@@ -173,7 +179,10 @@
     "deleteSetBody": "Se borrará este reparto guardado. Las personas no cambian.",
     "deletedSet": "Reparto eliminado",
     "notFound": "Este reparto ya no existe.",
-    "generatedOn": "Generado el {date}"
+    "generatedOn": "Generado el {date}",
+    "savedShort": "Guardado",
+    "noCurrentTitle": "Aún no hay grupos",
+    "noCurrentBody": "Elige los criterios en Crear y aquí verás los grupos para retocarlos, exportarlos o guardarlos."
   },
   "profile": {
     "title": "Perfil",
