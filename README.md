@@ -49,3 +49,9 @@ Descarga la plantilla desde la propia importación o desde Perfil.
   matrimonio; el mismo lenguaje se repite en el PDF y en la imagen exportada.
 - Respeta el tamaño de texto del sistema (rem), «reducir movimiento» y «aumentar contraste».
 - La apariencia por defecto es «Automático» (sigue al sistema); claro y oscuro se pueden forzar desde Perfil.
+
+## Despliegue (Render)
+
+`render.yaml` publica el front como Static Site gratuito. En Render: **New → Blueprint** y elige este repositorio.
+Pide `VITE_API_URL` (dirección de la API terminada en `/api`) y `VITE_GOOGLE_CLIENT_ID`. Son valores de
+compilación: si cambian, hay que volver a desplegar. Cada push a `main` vuelve a desplegar.
