@@ -1,0 +1,175 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/*
+ * Tokens de Clustr, sacados del logo: azul de los nodos (acción), verde agua del halo
+ * (vínculos y matrimonios) y azul noche del logotipo (texto). Contrastes AA comprobados:
+ * claro  — ink 16.1:1 sobre canvas, ink-2 5.5:1, accent 4.8:1, blanco sobre accent-fill 5.2:1
+ * oscuro — ink 16.9:1, ink-2 6.8:1 sobre surface, accent 6.2:1, blanco sobre accent-fill 4.6:1
+ */
+:root,
+.light-scope {
+  --canvas: #f4f6fa;
+  --surface: #ffffff;
+  --surface-2: #eef1f7;
+  --line: rgb(14 22 64 / 0.1);
+  --ink: #0e1640;
+  --ink-2: #5b6478;
+  --accent: #0b66e4;
+  --accent-fill: #0b66e4;
+  --accent-soft: #e8f0fe;
+  --teal: #0e8f7e;
+  --teal-strong: #0b7a6c;
+  --teal-soft: #e1f6f2;
+  --danger: #d92d20;
+  --bar: rgb(255 255 255 / 0.78);
+  --shadow: 0 1px 2px rgb(14 22 64 / 0.06), 0 8px 24px rgb(14 22 64 / 0.06);
+}
+
+.dark {
+  --canvas: #0b0f1e;
+  --surface: #151a2c;
+  --surface-2: #1d2337;
+  --line: rgb(238 241 248 / 0.1);
+  --ink: #eef1f8;
+  --ink-2: #9aa3b8;
+  --accent: #4c9dff;
+  --accent-fill: #1f6feb;
+  --accent-soft: #16233f;
+  --teal: #2dd4bf;
+  --teal-strong: #2dd4bf;
+  --teal-soft: #0f2a2a;
+  --danger: #ff6b5e;
+  --bar: rgb(21 26 44 / 0.78);
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.3), 0 8px 24px rgb(0 0 0 / 0.25);
+}
+
+/* Lo que se exporta como imagen siempre va en claro: se ve bien en cualquier chat y al imprimir. */
+.light-scope {
+  color: var(--ink);
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    --ink-2: #3c4459;
+    --line: rgb(14 22 64 / 0.3);
+  }
+  .dark {
+    --ink-2: #c3cad9;
+    --line: rgb(238 241 248 / 0.3);
+  }
+}
+
+@theme inline {
+  --color-canvas: var(--canvas);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-line: var(--line);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-accent: var(--accent);
+  --color-accent-fill: var(--accent-fill);
+  --color-accent-soft: var(--accent-soft);
+  --color-teal: var(--teal);
+  --color-teal-strong: var(--teal-strong);
+  --color-teal-soft: var(--teal-soft);
+  --color-danger: var(--danger);
+  --color-bar: var(--bar);
+  --shadow-card: var(--shadow);
+  --font-sans: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI Variable', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-display: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI Variable Display', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-canvas text-ink font-sans antialiased;
+    /* 17 pt en móvil (cuerpo de iOS), 15 px en escritorio. En rem: respeta el tamaño de texto del sistema. */
+    font-size: 1.0625rem;
+    line-height: 1.4;
+  }
+  @media (min-width: 1024px) {
+    body {
+      font-size: 0.9375rem;
+    }
+  }
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: 6px;
+  }
+  button,
+  [role='button'] {
+    cursor: pointer;
+  }
+  button:disabled {
+    cursor: default;
+  }
+}
+
+/* Barra flotante con material translúcido: solo en la capa de navegación, nunca en el contenido. */
+@utility glass {
+  background: var(--bar);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  @media (prefers-reduced-transparency: reduce) {
+    background: var(--surface);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+@utility field {
+  @apply w-full rounded-xl bg-surface-2 px-4 py-3 text-ink placeholder:text-ink-2 outline-none transition-shadow focus:ring-2 focus:ring-accent;
+  min-height: 44px;
+}
+
+@utility btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-full px-5 font-semibold transition active:scale-[0.98] disabled:opacity-50 disabled:active:scale-100;
+  min-height: 44px;
+}
+@utility btn-primary {
+  @apply btn bg-accent-fill text-white;
+}
+@utility btn-secondary {
+  @apply btn bg-accent-soft text-accent;
+}
+@utility btn-plain {
+  @apply btn px-3 text-accent;
+}
+@utility btn-danger {
+  @apply btn bg-danger/10 text-danger;
+}
+
+@utility section-title {
+  @apply px-4 pb-2 text-[0.8125rem] font-medium uppercase tracking-wide text-ink-2;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Entrada escalonada de los grupos recién creados: el único momento animado de la app. */
+@keyframes cluster-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.cluster-in {
+  animation: cluster-in 420ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
