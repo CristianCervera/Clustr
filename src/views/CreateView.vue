@@ -136,6 +136,7 @@ const participantsOpen = ref(false)
       <ListSection>
         <SwitchRow v-model="prefs.balanceGender" :label="t('groups.balanceGender')" />
         <SwitchRow v-model="prefs.mixMarital" :label="t('groups.mixMarital')" />
+        <SwitchRow v-model="prefs.spreadOccasional" :label="t('groups.spreadOccasional')" :hint="t('groups.spreadOccasionalHint')" />
         <SwitchRow v-model="prefs.balanceAge" :label="t('groups.balanceAge')" :hint="t('groups.balanceAgeHint')" />
       </ListSection>
 

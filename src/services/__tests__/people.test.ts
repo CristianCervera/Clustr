@@ -10,6 +10,7 @@ const person = (id: string, firstName: string, spouseId: string | null = null): 
   gender: null,
   age: null,
   married: Boolean(spouseId),
+  occasional: false,
   spouseId,
   phone: '',
   email: '',

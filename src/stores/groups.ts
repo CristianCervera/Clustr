@@ -10,6 +10,7 @@ export const DEFAULT_PREFERENCES: GroupPreferences = {
   balanceGender: true,
   balanceAge: false,
   mixMarital: true,
+  spreadOccasional: true,
 }
 
 const CURRENT_KEY = 'clustr.currentGroups'

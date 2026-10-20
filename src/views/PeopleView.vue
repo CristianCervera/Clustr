@@ -19,7 +19,7 @@ const store = usePeopleStore()
 const errorText = useErrorText()
 
 const query = ref('')
-const filter = ref<'all' | 'single' | 'married'>('all')
+const filter = ref<'all' | 'single' | 'married' | 'occasional'>('all')
 const editing = ref<Person | null>(null)
 const personOpen = ref(false)
 const importOpen = ref(false)
@@ -40,6 +40,7 @@ const visible = computed(() => {
   return store.people.filter((p) => {
     if (filter.value === 'single' && p.married) return false
     if (filter.value === 'married' && !p.married) return false
+    if (filter.value === 'occasional' && !p.occasional) return false
     return !q || searchKey(fullName(p)).includes(q)
   })
 })
@@ -49,6 +50,7 @@ function details(p: Person): string {
   // El vínculo primero: es lo que más importa al hacer grupos y lo primero que se cortaría.
   return [
     spouse ? t('marital.marriedTo', { name: spouse.firstName }) : p.married ? t('marital.married') : '',
+    p.occasional ? t('attendance.occasional') : '',
     p.age !== null ? t('people.age', { n: p.age }) : '',
     p.gender ? t(`gender.${p.gender}`) : '',
   ]
@@ -105,6 +107,7 @@ function openPerson(person: Person | null) {
             { value: 'all', label: t('people.filterAll') },
             { value: 'single', label: t('people.filterSingle') },
             { value: 'married', label: t('people.filterMarried') },
+            { value: 'occasional', label: t('people.filterOccasional') },
           ]"
         />
       </div>

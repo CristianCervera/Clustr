@@ -120,7 +120,7 @@ async function deleteAllPeople() {
   if (!ok) return
   try {
     await people.removeAll()
-    if (stats.value) stats.value = { ...stats.value, people: 0, married: 0, active: 0 }
+    if (stats.value) stats.value = { ...stats.value, people: 0, married: 0, couples: 0, occasional: 0, active: 0 }
     ui.toast(t('profile.deletedAll'))
   } catch (e) {
     ui.toast(errorText(e), 'error')
@@ -165,7 +165,7 @@ const version = __APP_VERSION__
       <dl class="mb-7 grid grid-cols-3 gap-2">
         <div v-for="item in [
           { label: t('profile.statsPeople'), value: stats?.people },
-          { label: t('profile.statsCouples'), value: stats?.married },
+          { label: t('profile.statsCouples'), value: stats?.couples },
           { label: t('profile.statsSets'), value: stats?.groupSets },
         ]" :key="item.label" class="rounded-2xl bg-surface px-2 py-3 text-center">
           <dd class="text-[1.5rem] font-bold tabular-nums">{{ item.value ?? '–' }}</dd>

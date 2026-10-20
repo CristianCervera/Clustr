@@ -25,6 +25,7 @@ const empty = (): PersonInput => ({
   gender: null,
   age: null,
   married: false,
+  occasional: false,
   spouseId: null,
   phone: '',
   email: '',
@@ -55,6 +56,10 @@ const marital = computed({
     form.married = v === 'married'
     if (!form.married) form.spouseId = null
   },
+})
+const attendance = computed({
+  get: () => (form.occasional ? 'occasional' : 'regular'),
+  set: (v: 'regular' | 'occasional') => (form.occasional = v === 'occasional'),
 })
 const ageText = computed({
   get: () => (form.age === null ? '' : String(form.age)),
@@ -161,6 +166,19 @@ async function remove() {
         </label>
       </ListSection>
 
+      <ListSection :footer="form.occasional ? t('people.occasionalHint') : undefined">
+        <div class="flex flex-col gap-2 px-4 py-3">
+          <span class="text-[0.875rem] text-ink-2">{{ t('people.attendanceLabel') }}</span>
+          <SegmentedControl
+            v-model="attendance"
+            :label="t('people.attendanceLabel')"
+            :options="[
+              { value: 'regular', label: t('attendance.regular') },
+              { value: 'occasional', label: t('attendance.occasional') },
+            ]"
+          />
+        </div>
+      </ListSection>
       <ListSection>
         <input v-model="form.phone" class="field !rounded-none !bg-transparent" type="tel" autocomplete="off" :placeholder="t('people.phone')" :aria-label="t('people.phone')" maxlength="40" />
         <input v-model="form.email" class="field !rounded-none !bg-transparent" type="email" inputmode="email" autocomplete="off" :placeholder="t('people.emailLabel')" :aria-label="t('people.emailLabel')" maxlength="120" />

@@ -56,6 +56,10 @@
     "married": "Marié(e)",
     "marriedTo": "Marié(e) à {name}"
   },
+  "attendance": {
+    "regular": "Habituel",
+    "occasional": "Occasionnel"
+  },
   "people": {
     "title": "Personnes",
     "count": "Personne pour l'instant | 1 personne | {n} personnes",
@@ -92,7 +96,10 @@
     "deleteBody": "La personne sera retirée de la liste. Les répartitions enregistrées ne changent pas.",
     "created": "{name} ajouté(e)",
     "saved": "Modifications enregistrées",
-    "deleted": "{name} supprimé(e)"
+    "deleted": "{name} supprimé(e)",
+    "attendanceLabel": "Présence",
+    "occasionalHint": "Ne vient pas souvent. Les occasionnels sont répartis entre les groupes pour qu'aucun ne soit dégarni.",
+    "filterOccasional": "Occasionnels"
   },
   "import": {
     "title": "Importer depuis Excel",
@@ -182,7 +189,10 @@
     "generatedOn": "Créée le {date}",
     "savedShort": "Enregistré",
     "noCurrentTitle": "Pas encore de groupes",
-    "noCurrentBody": "Choisissez vos critères dans Créer : vos groupes apparaîtront ici pour les ajuster, les exporter ou les enregistrer."
+    "noCurrentBody": "Choisissez vos critères dans Créer : vos groupes apparaîtront ici pour les ajuster, les exporter ou les enregistrer.",
+    "spreadOccasional": "Répartir les occasionnels",
+    "spreadOccasionalHint": "Pour qu'aucun groupe ne soit dégarni s'ils ne viennent pas.",
+    "occasionalCount": "1 occasionnel | {n} occasionnels"
   },
   "profile": {
     "title": "Profil",

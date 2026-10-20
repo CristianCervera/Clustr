@@ -21,7 +21,13 @@ const linkedToNext = (i: number) => {
 const composition = computed(() => {
   const men = props.members.filter((m) => m.gender === 'male').length
   const women = props.members.filter((m) => m.gender === 'female').length
-  return men || women ? `${men} ${t('gender.maleShort')} · ${women} ${t('gender.femaleShort')}` : ''
+  const occasional = props.members.filter((m) => m.occasional).length
+  return [
+    men || women ? `${men} ${t('gender.maleShort')} · ${women} ${t('gender.femaleShort')}` : '',
+    occasional ? t('groups.occasionalCount', occasional) : '',
+  ]
+    .filter(Boolean)
+    .join(' · ')
 })
 </script>
 

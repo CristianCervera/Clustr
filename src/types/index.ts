@@ -9,6 +9,7 @@ export interface GroupPreferences {
   balanceGender: boolean
   balanceAge: boolean
   mixMarital: boolean
+  spreadOccasional: boolean
 }
 
 export interface User {
@@ -31,6 +32,8 @@ export interface Person {
   gender: Gender | null
   age: number | null
   married: boolean
+  /** No suele venir: se reparte entre los grupos para que ninguno se quede cojo. */
+  occasional: boolean
   spouseId: string | null
   phone: string
   email: string
@@ -48,6 +51,8 @@ export interface Member {
   gender: Gender | null
   age: number | null
   married: boolean
+  /** No suele venir: se reparte entre los grupos para que ninguno se quede cojo. */
+  occasional: boolean
   spouseId: string | null
 }
 
@@ -62,6 +67,9 @@ export interface GroupSet {
 export interface Stats {
   people: number
   married: number
+  /** Matrimonios: cada pareja vinculada cuenta una vez. */
+  couples: number
+  occasional: number
   active: number
   groupSets: number
 }

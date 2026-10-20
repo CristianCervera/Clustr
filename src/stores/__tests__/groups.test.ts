@@ -11,6 +11,7 @@ const p = (id: string): Person => ({
   gender: null,
   age: null,
   married: false,
+  occasional: false,
   spouseId: null,
   phone: '',
   email: '',
@@ -34,7 +35,7 @@ describe('groups store', () => {
   })
   it('recuerda los grupos actuales al recargar y los olvida al cerrar sesión', async () => {
     const store = useGroupsStore()
-    store.previewPreferences = { mode: 'count', value: 2, couples: 'together', balanceGender: true, balanceAge: false, mixMarital: true }
+    store.previewPreferences = { mode: 'count', value: 2, couples: 'together', balanceGender: true, balanceAge: false, mixMarital: true, spreadOccasional: true }
     store.preview = [[p('a')], [p('b')]]
     await nextTick()
     setActivePinia(createPinia())

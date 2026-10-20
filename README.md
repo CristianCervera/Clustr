@@ -27,9 +27,9 @@ npm run dev                       # http://localhost:5180
 ## Vistas
 
 - **Grupos** — participantes, criterios (nº de grupos o personas por grupo, matrimonios juntos/separados,
-  equilibrar sexo, estado civil y edad), generar, mover personas entre grupos, guardar, exportar (PDF, PNG,
+  equilibrar sexo, estado civil y edad, repartir a los ocasionales), generar, mover personas entre grupos, guardar, exportar (PDF, PNG,
   texto, compartir) e historial de repartos.
-- **Personas** — búsqueda, filtros, alta y edición de una en una, e importación desde Excel con vista previa.
+- **Personas** — búsqueda, filtros (solteros, casados, ocasionales), alta y edición de una en una, e importación desde Excel con vista previa.
 - **Perfil** — datos, estadísticas, idioma, apariencia, contraseña, exportar a Excel, borrar datos y cuenta.
 
 ## Excel

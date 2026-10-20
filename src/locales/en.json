@@ -56,6 +56,10 @@
     "married": "Married",
     "marriedTo": "Married to {name}"
   },
+  "attendance": {
+    "regular": "Regular",
+    "occasional": "Occasional"
+  },
   "people": {
     "title": "People",
     "count": "Nobody yet | 1 person | {n} people",
@@ -92,7 +96,10 @@
     "deleteBody": "They'll be removed from the list. Saved groupings won't change.",
     "created": "{name} added",
     "saved": "Changes saved",
-    "deleted": "{name} deleted"
+    "deleted": "{name} deleted",
+    "attendanceLabel": "Attendance",
+    "occasionalHint": "Doesn't come often. Occasional people are spread across groups so none ends up short-handed.",
+    "filterOccasional": "Occasional"
   },
   "import": {
     "title": "Import from Excel",
@@ -182,7 +189,10 @@
     "generatedOn": "Created {date}",
     "savedShort": "Saved",
     "noCurrentTitle": "No groups yet",
-    "noCurrentBody": "Choose your criteria in Create and your groups will show up here to adjust, export or save."
+    "noCurrentBody": "Choose your criteria in Create and your groups will show up here to adjust, export or save.",
+    "spreadOccasional": "Spread occasional people",
+    "spreadOccasionalHint": "So no group ends up short-handed if they don't come.",
+    "occasionalCount": "1 occasional | {n} occasional"
   },
   "profile": {
     "title": "Profile",

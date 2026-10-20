@@ -56,6 +56,10 @@
     "married": "Casado/a",
     "marriedTo": "Casado/a con {name}"
   },
+  "attendance": {
+    "regular": "Habitual",
+    "occasional": "Ocasional"
+  },
   "people": {
     "title": "Personas",
     "count": "Nadie todavía | 1 persona | {n} personas",
@@ -92,7 +96,10 @@
     "deleteBody": "Desaparecerá de la lista. Los repartos guardados no cambian.",
     "created": "Se ha añadido a {name}",
     "saved": "Cambios guardados",
-    "deleted": "Se ha eliminado a {name}"
+    "deleted": "Se ha eliminado a {name}",
+    "attendanceLabel": "Asistencia",
+    "occasionalHint": "No suele venir. Al hacer los grupos se reparte a los ocasionales para que ninguno se quede cojo.",
+    "filterOccasional": "Ocasionales"
   },
   "import": {
     "title": "Importar desde Excel",
@@ -182,7 +189,10 @@
     "generatedOn": "Generado el {date}",
     "savedShort": "Guardado",
     "noCurrentTitle": "Aún no hay grupos",
-    "noCurrentBody": "Elige los criterios en Crear y aquí verás los grupos para retocarlos, exportarlos o guardarlos."
+    "noCurrentBody": "Elige los criterios en Crear y aquí verás los grupos para retocarlos, exportarlos o guardarlos.",
+    "spreadOccasional": "Repartir a los ocasionales",
+    "spreadOccasionalHint": "Para que ningún grupo se quede cojo si no vienen.",
+    "occasionalCount": "1 ocasional | {n} ocasionales"
   },
   "profile": {
     "title": "Perfil",
