@@ -1,14 +1,15 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { Pencil } from 'lucide-vue-next'
 import { fullName, orderMembers, type GroupMember } from '@/services/people'
 
 /**
  * Tarjeta de un grupo. A la izquierda de los nombres corre el «hilo» del logo:
  * un nodo azul por persona y un trazo verde agua que une a cada matrimonio.
  */
-const props = defineProps<{ index: number; members: GroupMember[]; interactive?: boolean }>()
-const emit = defineEmits<{ select: [member: GroupMember] }>()
+const props = defineProps<{ index: number; members: GroupMember[]; name?: string; interactive?: boolean; renamable?: boolean }>()
+const emit = defineEmits<{ select: [member: GroupMember]; rename: [] }>()
 const { t } = useI18n()
 
 const idOf = (m: GroupMember) => ('id' in m ? m.id : m.personId)
@@ -32,13 +33,26 @@ const composition = computed(() => {
 </script>
 
 <template>
-  <article class="rounded-[1.25rem] bg-surface p-4 shadow-card" :aria-labelledby="`group-${index}`">
-    <header class="mb-2 flex items-center gap-2.5">
-      <span class="relative grid h-7 w-7 place-items-center rounded-full bg-teal/25" aria-hidden="true">
-        <span class="h-3.5 w-3.5 rounded-full bg-accent-fill" />
-      </span>
-      <h3 :id="`group-${index}`" class="shrink-0 whitespace-nowrap text-[1.0625rem] font-semibold">{{ t('groups.group', { n: index + 1 }) }}</h3>
-      <span class="min-w-0 flex-1 text-right text-[0.8125rem] tabular-nums text-ink-2">
+  <article class="min-w-0 rounded-[1.25rem] bg-surface p-4 shadow-card" :aria-labelledby="`group-${index}`">
+    <!-- Si el nombre es largo, el resumen pasa a la línea de abajo. -->
+    <header class="mb-2 flex flex-wrap items-center gap-x-2.5 gap-y-0.5">
+      <div class="flex min-w-0 max-w-full items-center gap-2.5">
+        <span class="relative grid h-7 w-7 shrink-0 place-items-center rounded-full bg-teal/25" aria-hidden="true">
+          <span class="h-3.5 w-3.5 rounded-full bg-accent-fill" />
+        </span>
+        <h3 :id="`group-${index}`" class="min-w-0 truncate text-[1.0625rem] font-semibold">{{ name || t('groups.group', { n: index + 1 }) }}</h3>
+        <button
+          v-if="renamable"
+          type="button"
+          class="-m-2 grid h-9 w-9 shrink-0 place-items-center rounded-full text-ink-2 hover:bg-ink/[0.05] hover:text-accent"
+          :aria-label="t('groups.renameGroup')"
+          :title="t('groups.renameGroup')"
+          @click="emit('rename')"
+        >
+          <Pencil :size="15" aria-hidden="true" />
+        </button>
+      </div>
+      <span class="ml-auto whitespace-nowrap text-right text-[0.8125rem] tabular-nums text-ink-2">
         {{ t('groups.members', members.length) }}<template v-if="composition"> · {{ composition }}</template>
       </span>
     </header>

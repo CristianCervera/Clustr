@@ -129,10 +129,7 @@
     "preview": "Anteprima"
   },
   "create": {
-    "title": "Crea gruppi",
-    "replaceTitle": "Sostituire i gruppi attuali?",
-    "replaceBody": "I gruppi attuali non sono salvati e andranno persi creandone di nuovi.",
-    "replace": "Crea nuovi"
+    "title": "Crea gruppi"
   },
   "groups": {
     "title": "Gruppi",
@@ -161,17 +158,19 @@
     "regenerate": "Rimescola",
     "resultHint": "Tocca una persona per spostarla in un altro gruppo.",
     "group": "Gruppo {n}",
+    "newSet": "Nuovo",
+    "noSetsTitle": "Ancora nessuna suddivisione",
+    "noSetsBody": "Scegli i criteri in Crea, dagli un nome e qui avrai tutte le tue suddivisioni da vedere, ritoccare o esportare.",
+    "regenerateTitle": "Rigenerare i gruppi?",
+    "regenerateBody": "Le stesse persone verranno ridistribuite con gli stessi criteri. Le modifiche manuali si perdono e i nomi dei gruppi restano solo per posizione.",
+    "renameGroup": "Rinomina gruppo",
+    "groupNameLabel": "Nome del gruppo",
+    "groupNameHint": "Lascialo vuoto per usare il nome predefinito.",
     "members": "1 persona | {n} persone",
     "moveTitle": "Sposta {name}",
-    "moveTo": "Sposta in {group}",
     "currentGroup": "Gruppo attuale",
-    "save": "Salva",
-    "saveTitle": "Salva suddivisione",
     "nameLabel": "Nome della suddivisione",
     "defaultName": "Gruppi del {date}",
-    "saved": "Suddivisione salvata",
-    "history": "Suddivisioni salvate",
-    "historyEmpty": "Le suddivisioni che salvi appariranno qui.",
     "setSummary": "{groups} gruppi · {people} persone",
     "notEnough": "Servono almeno 2 partecipanti per creare i gruppi.",
     "emptyTitle": "Inizia aggiungendo persone",
@@ -191,9 +190,6 @@
     "deletedSet": "Suddivisione eliminata",
     "notFound": "Questa suddivisione non esiste più.",
     "generatedOn": "Creata il {date}",
-    "savedShort": "Salvato",
-    "noCurrentTitle": "Ancora nessun gruppo",
-    "noCurrentBody": "Scegli i criteri in Crea e qui vedrai i gruppi da ritoccare, esportare o salvare.",
     "spreadOccasional": "Distribuire gli occasionali",
     "spreadOccasionalHint": "Così nessun gruppo resta scoperto se non vengono.",
     "occasionalCount": "1 occasionale | {n} occasionali"

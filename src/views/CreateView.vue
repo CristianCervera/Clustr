@@ -11,6 +11,7 @@ import SegmentedControl from '@/components/ui/SegmentedControl.vue'
 import StepperControl from '@/components/ui/StepperControl.vue'
 import SwitchRow from '@/components/ui/SwitchRow.vue'
 import { useErrorText } from '@/composables/useErrorText'
+import { useFormatDate } from '@/composables/useFormatDate'
 import { estimateGroups } from '@/services/people'
 import { useAuthStore } from '@/stores/auth'
 import { DEFAULT_PREFERENCES, useGroupsStore } from '@/stores/groups'
@@ -25,6 +26,11 @@ const people = usePeopleStore()
 const groups = useGroupsStore()
 const ui = useUiStore()
 const errorText = useErrorText()
+const formatDate = useFormatDate()
+
+// Nombre del reparto: opcional; si se deja vacío se usa uno con la fecha.
+const setName = ref('')
+const defaultName = computed(() => t('groups.defaultName', { date: formatDate(new Date(), 'medium') }))
 
 const prefs = reactive<GroupPreferences>({ ...DEFAULT_PREFERENCES, ...auth.user?.preferences })
 watch(
@@ -51,17 +57,14 @@ watch(maxValue, (max) => {
 const estimate = computed(() => estimateGroups(participants.value, prefs))
 
 const generating = ref(false)
+/** Genera los grupos y los guarda directamente como un reparto con su nombre. */
 async function generate() {
-  // Generar sustituye a los grupos actuales: si no se han guardado, se pregunta antes.
-  if (groups.preview && !groups.savedSetId) {
-    const ok = await ui.confirm({ title: t('create.replaceTitle'), message: t('create.replaceBody'), confirmLabel: t('create.replace') })
-    if (!ok) return
-  }
   generating.value = true
   try {
-    await groups.generate({ ...prefs })
+    const set = await groups.createSet({ ...prefs }, setName.value.trim() || defaultName.value)
     if (auth.user) auth.user.preferences = { ...prefs }
-    await router.push('/groups')
+    setName.value = ''
+    await router.push(`/groups/${set.id}`)
   } catch (e) {
     ui.toast(errorText(e), 'error')
   } finally {
@@ -90,6 +93,10 @@ const participantsOpen = ref(false)
     </EmptyState>
 
     <div v-else class="px-4">
+      <ListSection :title="t('groups.nameLabel')">
+        <input v-model="setName" class="field !rounded-none !bg-transparent" autocomplete="off" maxlength="80" :placeholder="defaultName" :aria-label="t('groups.nameLabel')" />
+      </ListSection>
+
       <ListSection>
         <button type="button" class="flex min-h-[60px] w-full items-center gap-3 px-4 text-left" @click="participantsOpen = true">
           <span class="grid h-9 w-9 place-items-center rounded-xl bg-teal-soft text-teal-strong"><Users :size="20" aria-hidden="true" /></span>

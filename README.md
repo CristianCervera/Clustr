@@ -26,9 +26,11 @@ npm run dev                       # http://localhost:5180
 
 ## Vistas
 
-- **Grupos** — participantes, criterios (nº de grupos o personas por grupo, matrimonios juntos/separados,
-  equilibrar sexo, estado civil y edad, repartir a los ocasionales), generar, mover personas entre grupos, guardar, exportar (PDF, PNG,
-  texto, compartir) e historial de repartos.
+- **Crear** — nombre del reparto, participantes y criterios (nº de grupos o personas por grupo, matrimonios
+  juntos/separados, equilibrar sexo, estado civil y edad, repartir a los ocasionales). Al generar, el reparto se guarda
+  directamente (sin nombre, «Grupos del <fecha>») y se abre.
+- **Grupos** — lista de repartos guardados. Cada reparto se puede retocar (mover personas, poner nombre a cada grupo,
+  volver a generar con las mismas personas y criterios), renombrar, exportar (PDF, PNG, texto, compartir) o borrar.
 - **Personas** — búsqueda, filtros (solteros, casados, ocasionales), alta y edición, e importación desde Excel con vista
   previa. Al añadir «Pepe y Pepa» se crean dos personas casadas entre sí. Un matrimonio comparte la asistencia: marcar a
   uno como ocasional (o habitual) marca también al otro.

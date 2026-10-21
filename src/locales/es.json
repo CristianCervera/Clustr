@@ -129,10 +129,7 @@
     "preview": "Vista previa"
   },
   "create": {
-    "title": "Crear grupos",
-    "replaceTitle": "¿Sustituir los grupos actuales?",
-    "replaceBody": "Los grupos actuales no están guardados y se perderán al crear otros nuevos.",
-    "replace": "Crear nuevos"
+    "title": "Crear grupos"
   },
   "groups": {
     "title": "Grupos",
@@ -161,17 +158,19 @@
     "regenerate": "Volver a generar",
     "resultHint": "Toca a una persona para moverla a otro grupo.",
     "group": "Grupo {n}",
+    "newSet": "Nuevo",
+    "noSetsTitle": "Aún no hay repartos",
+    "noSetsBody": "Elige los criterios en Crear, ponle un nombre y aquí tendrás todos tus repartos para verlos, retocarlos o exportarlos.",
+    "regenerateTitle": "¿Volver a generar los grupos?",
+    "regenerateBody": "Se repartirá de nuevo a las mismas personas con los mismos criterios. Se pierden los cambios hechos a mano; los nombres de los grupos se mantienen por orden.",
+    "renameGroup": "Cambiar nombre del grupo",
+    "groupNameLabel": "Nombre del grupo",
+    "groupNameHint": "Déjalo vacío para usar el nombre por defecto.",
     "members": "1 persona | {n} personas",
     "moveTitle": "Mover a {name}",
-    "moveTo": "Mover a {group}",
     "currentGroup": "Grupo actual",
-    "save": "Guardar",
-    "saveTitle": "Guardar reparto",
     "nameLabel": "Nombre del reparto",
     "defaultName": "Grupos del {date}",
-    "saved": "Reparto guardado",
-    "history": "Repartos guardados",
-    "historyEmpty": "Cuando guardes un reparto aparecerá aquí.",
     "setSummary": "{groups} grupos · {people} personas",
     "notEnough": "Necesitas al menos 2 participantes para hacer grupos.",
     "emptyTitle": "Empieza añadiendo personas",
@@ -191,9 +190,6 @@
     "deletedSet": "Reparto eliminado",
     "notFound": "Este reparto ya no existe.",
     "generatedOn": "Generado el {date}",
-    "savedShort": "Guardado",
-    "noCurrentTitle": "Aún no hay grupos",
-    "noCurrentBody": "Elige los criterios en Crear y aquí verás los grupos para retocarlos, exportarlos o guardarlos.",
     "spreadOccasional": "Repartir a los ocasionales",
     "spreadOccasionalHint": "Para que ningún grupo se quede cojo si no vienen.",
     "occasionalCount": "1 ocasional | {n} ocasionales"

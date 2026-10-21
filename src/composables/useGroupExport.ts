@@ -6,7 +6,7 @@ import { useUiStore } from '@/stores/ui'
 import { useFormatDate } from './useFormatDate'
 
 /** Exportar un reparto a PDF, imagen o texto, y compartirlo. */
-export function useGroupExport(groups: Ref<GroupMember[][]>, title: Ref<string>, date: Ref<Date>, poster: Ref<HTMLElement | undefined>) {
+export function useGroupExport(groups: Ref<GroupMember[][]>, names: Ref<string[] | undefined>, title: Ref<string>, date: Ref<Date>, poster: Ref<HTMLElement | undefined>) {
   const { t } = useI18n()
   const formatDate = useFormatDate()
   const ui = useUiStore()
@@ -15,7 +15,7 @@ export function useGroupExport(groups: Ref<GroupMember[][]>, title: Ref<string>,
   const labels = (): ExportLabels => ({
     title: title.value,
     subtitle: t('groups.generatedOn', { date: formatDate(date.value) }),
-    groupName: (i) => t('groups.group', { n: i + 1 }),
+    groupName: (i) => names.value?.[i] || t('groups.group', { n: i + 1 }),
     members: (n) => t('groups.members', n),
   })
 

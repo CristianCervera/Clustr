@@ -129,10 +129,7 @@
     "preview": "Aperçu"
   },
   "create": {
-    "title": "Créer des groupes",
-    "replaceTitle": "Remplacer les groupes actuels ?",
-    "replaceBody": "Les groupes actuels ne sont pas enregistrés et seront perdus si vous en créez de nouveaux.",
-    "replace": "Créer de nouveaux"
+    "title": "Créer des groupes"
   },
   "groups": {
     "title": "Groupes",
@@ -161,17 +158,19 @@
     "regenerate": "Mélanger à nouveau",
     "resultHint": "Touchez une personne pour la déplacer dans un autre groupe.",
     "group": "Groupe {n}",
+    "newSet": "Nouveau",
+    "noSetsTitle": "Aucune répartition pour l'instant",
+    "noSetsBody": "Choisissez les critères dans Créer, donnez-lui un nom et toutes vos répartitions seront ici pour les voir, les retoucher ou les exporter.",
+    "regenerateTitle": "Régénérer les groupes ?",
+    "regenerateBody": "Les mêmes personnes seront réparties à nouveau avec les mêmes critères. Les changements manuels sont perdus et les noms des groupes ne sont conservés que par position.",
+    "renameGroup": "Renommer le groupe",
+    "groupNameLabel": "Nom du groupe",
+    "groupNameHint": "Laissez vide pour utiliser le nom par défaut.",
     "members": "1 personne | {n} personnes",
     "moveTitle": "Déplacer {name}",
-    "moveTo": "Déplacer vers {group}",
     "currentGroup": "Groupe actuel",
-    "save": "Enregistrer",
-    "saveTitle": "Enregistrer la répartition",
     "nameLabel": "Nom de la répartition",
     "defaultName": "Groupes du {date}",
-    "saved": "Répartition enregistrée",
-    "history": "Répartitions enregistrées",
-    "historyEmpty": "Les répartitions que vous enregistrez apparaîtront ici.",
     "setSummary": "{groups} groupes · {people} personnes",
     "notEnough": "Il faut au moins 2 participants pour créer des groupes.",
     "emptyTitle": "Commencez par ajouter des personnes",
@@ -191,9 +190,6 @@
     "deletedSet": "Répartition supprimée",
     "notFound": "Cette répartition n'existe plus.",
     "generatedOn": "Créée le {date}",
-    "savedShort": "Enregistré",
-    "noCurrentTitle": "Pas encore de groupes",
-    "noCurrentBody": "Choisissez vos critères dans Créer : vos groupes apparaîtront ici pour les ajuster, les exporter ou les enregistrer.",
     "spreadOccasional": "Répartir les occasionnels",
     "spreadOccasionalHint": "Pour qu'aucun groupe ne soit dégarni s'ils ne viennent pas.",
     "occasionalCount": "1 occasionnel | {n} occasionnels"

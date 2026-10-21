@@ -8,13 +8,13 @@ import { useGroupExport } from '@/composables/useGroupExport'
 import { useFormatDate } from '@/composables/useFormatDate'
 import type { GroupMember } from '@/services/people'
 
-const props = defineProps<{ groups: GroupMember[][]; title: string; date: Date }>()
+const props = defineProps<{ groups: GroupMember[][]; names?: string[]; title: string; date: Date }>()
 const { t } = useI18n()
 const formatDate = useFormatDate()
 
 const posterWrap = ref<HTMLElement>()
 const poster = computed(() => posterWrap.value?.firstElementChild as HTMLElement | undefined)
-const exp = useGroupExport(toRef(props, 'groups'), toRef(props, 'title'), toRef(props, 'date'), poster)
+const exp = useGroupExport(toRef(props, 'groups'), toRef(props, 'names'), toRef(props, 'title'), toRef(props, 'date'), poster)
 const canShare = typeof navigator !== 'undefined' && 'share' in navigator
 
 const items = computed<MenuItem[]>(() => [
@@ -33,6 +33,6 @@ const items = computed<MenuItem[]>(() => [
     </span>
   </MenuButton>
   <div ref="posterWrap" class="pointer-events-none fixed left-[-20000px] top-0" aria-hidden="true">
-    <GroupsPoster :groups="groups" :title="title" :subtitle="t('groups.generatedOn', { date: formatDate(date) })" />
+    <GroupsPoster :groups="groups" :names="names" :title="title" :subtitle="t('groups.generatedOn', { date: formatDate(date) })" />
   </div>
 </template>

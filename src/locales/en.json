@@ -129,10 +129,7 @@
     "preview": "Preview"
   },
   "create": {
-    "title": "Create groups",
-    "replaceTitle": "Replace the current groups?",
-    "replaceBody": "The current groups aren't saved and will be lost when you create new ones.",
-    "replace": "Create new"
+    "title": "Create groups"
   },
   "groups": {
     "title": "Groups",
@@ -161,17 +158,19 @@
     "regenerate": "Shuffle Again",
     "resultHint": "Tap a person to move them to another group.",
     "group": "Group {n}",
+    "newSet": "New",
+    "noSetsTitle": "No group sets yet",
+    "noSetsBody": "Choose the criteria in Create, give it a name and all your group sets will be here to view, adjust or export.",
+    "regenerateTitle": "Regenerate the groups?",
+    "regenerateBody": "The same people will be shuffled again with the same criteria. Manual changes are lost and group names are kept by position only.",
+    "renameGroup": "Rename group",
+    "groupNameLabel": "Group name",
+    "groupNameHint": "Leave it empty to use the default name.",
     "members": "1 person | {n} people",
     "moveTitle": "Move {name}",
-    "moveTo": "Move to {group}",
     "currentGroup": "Current group",
-    "save": "Save",
-    "saveTitle": "Save Grouping",
     "nameLabel": "Grouping name",
     "defaultName": "Groups {date}",
-    "saved": "Grouping saved",
-    "history": "Saved Groupings",
-    "historyEmpty": "Groupings you save will appear here.",
     "setSummary": "{groups} groups · {people} people",
     "notEnough": "You need at least 2 participants to make groups.",
     "emptyTitle": "Start by adding people",
@@ -191,9 +190,6 @@
     "deletedSet": "Grouping deleted",
     "notFound": "This grouping no longer exists.",
     "generatedOn": "Created {date}",
-    "savedShort": "Saved",
-    "noCurrentTitle": "No groups yet",
-    "noCurrentBody": "Choose your criteria in Create and your groups will show up here to adjust, export or save.",
     "spreadOccasional": "Spread occasional people",
     "spreadOccasionalHint": "So no group ends up short-handed if they don't come.",
     "occasionalCount": "1 occasional | {n} occasional"

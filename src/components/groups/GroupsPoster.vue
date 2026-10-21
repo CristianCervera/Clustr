@@ -4,7 +4,7 @@ import GroupCard from './GroupCard.vue'
 import type { GroupMember } from '@/services/people'
 
 /** Composición que se exporta como imagen. Se pinta fuera de pantalla y siempre en claro. */
-defineProps<{ groups: GroupMember[][]; title: string; subtitle: string }>()
+defineProps<{ groups: GroupMember[][]; names?: string[]; title: string; subtitle: string }>()
 </script>
 
 <template>
@@ -17,7 +17,7 @@ defineProps<{ groups: GroupMember[][]; title: string; subtitle: string }>()
       <BrandLogo />
     </div>
     <div class="grid grid-cols-3 gap-4">
-      <GroupCard v-for="(group, i) in groups" :key="i" :index="i" :members="group" class="!shadow-none" />
+      <GroupCard v-for="(group, i) in groups" :key="i" :index="i" :members="group" :name="names?.[i]" class="!shadow-none" />
     </div>
   </div>
 </template>

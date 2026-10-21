@@ -2,8 +2,8 @@
 import GroupCard from './GroupCard.vue'
 import type { GroupMember } from '@/services/people'
 
-defineProps<{ groups: GroupMember[][]; interactive?: boolean; animate?: boolean }>()
-const emit = defineEmits<{ select: [member: GroupMember, group: number] }>()
+defineProps<{ groups: GroupMember[][]; names?: string[]; interactive?: boolean; renamable?: boolean; animate?: boolean }>()
+const emit = defineEmits<{ select: [member: GroupMember, group: number]; rename: [group: number] }>()
 </script>
 
 <template>
@@ -15,10 +15,13 @@ const emit = defineEmits<{ select: [member: GroupMember, group: number] }>()
       :key="i"
       :index="i"
       :members="group"
+      :name="names?.[i]"
       :interactive="interactive"
+      :renamable="renamable"
       :class="animate ? 'cluster-in' : ''"
       :style="animate ? { animationDelay: `${Math.min(i, 8) * 60}ms` } : undefined"
       @select="(m) => emit('select', m, i)"
+      @rename="emit('rename', i)"
     />
   </div>
   </div>

@@ -1,11 +1,9 @@
-import { beforeEach, describe, expect, it } from 'vitest'
-import { createPinia, setActivePinia } from 'pinia'
-import { nextTick } from 'vue'
-import { useGroupsStore } from '../groups'
-import type { Person } from '@/types'
+import { describe, expect, it } from 'vitest'
+import { layoutOf, moveMember } from '../groups'
+import type { GroupSet, Member } from '@/types'
 
-const p = (id: string): Person => ({
-  id,
+const m = (id: string): Member => ({
+  personId: id,
   firstName: id,
   lastName: '',
   gender: null,
@@ -13,37 +11,20 @@ const p = (id: string): Person => ({
   married: false,
   occasional: false,
   spouseId: null,
-  phone: '',
-  email: '',
-  notes: '',
-  active: true,
 })
 
-describe('groups store', () => {
-  beforeEach(() => {
-    localStorage.clear()
-    setActivePinia(createPinia())
+const setOf = (groups: Member[][], groupNames: string[]): GroupSet => ({ id: 's', name: 'Reparto', preferences: {}, createdAt: '', groupNames, groups })
+
+describe('repartos', () => {
+  it('describe la composición por posiciones', () => {
+    const [a, b, c] = [m('a'), m('b'), m('c')]
+    expect(layoutOf([[a, b], [c]])).toEqual([[0, 1], [2]])
   })
 
-  it('mueve a una persona de grupo y quita los grupos que se quedan vacíos', () => {
-    const store = useGroupsStore()
-    store.preview = [[p('a'), p('b')], [p('c')]]
-    store.move('a', 1)
-    expect(store.preview!.map((g) => g.map((x) => x.id))).toEqual([['b'], ['c', 'a']])
-    store.move('b', 1)
-    expect(store.preview!.map((g) => g.map((x) => x.id))).toEqual([['c', 'a', 'b']])
-  })
-  it('recuerda los grupos actuales al recargar y los olvida al cerrar sesión', async () => {
-    const store = useGroupsStore()
-    store.previewPreferences = { mode: 'count', value: 2, couples: 'together', balanceGender: true, balanceAge: false, mixMarital: true, spreadOccasional: true }
-    store.preview = [[p('a')], [p('b')]]
-    await nextTick()
-    setActivePinia(createPinia())
-    const reloaded = useGroupsStore()
-    expect(reloaded.preview!.map((g) => g.map((x) => x.id))).toEqual([['a'], ['b']])
-    reloaded.reset()
-    await nextTick()
-    setActivePinia(createPinia())
-    expect(useGroupsStore().preview).toBeNull()
+  it('mueve a un miembro y quita los grupos vacíos con su nombre', () => {
+    const [a, b, c] = [m('a'), m('b'), m('c')]
+    const set = setOf([[a], [b], [c]], ['Leones', '', 'Águilas'])
+    expect(moveMember(set, b, 0)).toEqual({ layout: [[0, 1], [2]], groupNames: ['Leones', 'Águilas'] })
+    expect(moveMember(set, a, 2)).toEqual({ layout: [[1], [2, 0]], groupNames: ['', 'Águilas'] })
   })
 })

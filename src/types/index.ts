@@ -61,6 +61,8 @@ export interface GroupSet {
   name: string
   preferences: Partial<GroupPreferences>
   createdAt: string
+  /** Nombre de cada grupo, en el mismo orden que `groups`; vacío para «Grupo N». */
+  groupNames: string[]
   groups: Member[][]
 }
 
