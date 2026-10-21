@@ -6,7 +6,7 @@ import ListSection from '@/components/ui/ListSection.vue'
 import SegmentedControl from '@/components/ui/SegmentedControl.vue'
 import SwitchRow from '@/components/ui/SwitchRow.vue'
 import { useErrorText } from '@/composables/useErrorText'
-import { fullName } from '@/services/people'
+import { fullName, splitCouple } from '@/services/people'
 import { usePeopleStore } from '@/stores/people'
 import { useUiStore } from '@/stores/ui'
 import type { Person, PersonInput } from '@/types'
@@ -61,6 +61,10 @@ const attendance = computed({
   get: () => (form.occasional ? 'occasional' : 'regular'),
   set: (v: 'regular' | 'occasional') => (form.occasional = v === 'occasional'),
 })
+const attendanceHint = computed(() => {
+  const shared = couple.value ? t('people.occasionalBoth') : spouseName.value ? t('people.occasionalSpouse', { name: spouseName.value }) : ''
+  return [form.occasional ? t('people.occasionalHint') : '', shared].filter(Boolean).join(' ') || undefined
+})
 const ageText = computed({
   get: () => (form.age === null ? '' : String(form.age)),
   set: (v: string) => {
@@ -68,6 +72,15 @@ const ageText = computed({
     form.age = Number.isFinite(n) && n >= 0 && n <= 120 ? n : null
   },
 })
+// Al añadir, «Pepe y Pepa» son dos personas casadas entre sí, como al importar un Excel.
+const couple = computed(() => {
+  if (props.person) return null
+  const names = splitCouple(form.firstName.trim())
+  if (!names) return null
+  const lastNames = splitCouple(form.lastName.trim()) ?? [form.lastName.trim(), form.lastName.trim()]
+  return names.map((firstName, i) => ({ firstName, lastName: lastNames[i]! }))
+})
+const spouseName = computed(() => (form.spouseId ? fullName(store.byId.get(form.spouseId) ?? { firstName: '', lastName: '' }) : ''))
 const spouseOptions = computed(() => store.people.filter((p) => p.id !== props.person?.id))
 
 async function save() {
@@ -75,7 +88,12 @@ async function save() {
   busy.value = true
   error.value = ''
   try {
-    if (props.person) {
+    if (couple.value) {
+      // El sexo y la edad no se pueden saber de los dos: se completan después en cada ficha.
+      const [a, b] = couple.value.map((names) => ({ ...form, ...names, gender: null, age: null }))
+      await store.createCouple(a!, b!)
+      ui.toast(t('people.coupleCreated', { a: fullName(a!), b: fullName(b!) }))
+    } else if (props.person) {
       await store.update(props.person.id, { ...form })
       ui.toast(t('people.saved'))
     } else {
@@ -121,12 +139,12 @@ async function remove() {
     @confirm="save"
   >
     <form class="pt-2" @submit.prevent="save">
-      <ListSection>
+      <ListSection :footer="couple ? t('people.coupleHint', { a: fullName(couple[0]!), b: fullName(couple[1]!) }) : undefined">
         <input v-model="form.firstName" class="field !rounded-none !bg-transparent" autocomplete="off" :placeholder="t('people.firstName')" :aria-label="t('people.firstName')" maxlength="60" autofocus />
         <input v-model="form.lastName" class="field !rounded-none !bg-transparent" autocomplete="off" :placeholder="t('people.lastName')" :aria-label="t('people.lastName')" maxlength="80" />
       </ListSection>
 
-      <ListSection>
+      <ListSection v-if="!couple">
         <div class="flex flex-col gap-2 px-4 py-3">
           <span class="text-[0.875rem] text-ink-2">{{ t('people.genderLabel') }}</span>
           <SegmentedControl
@@ -145,7 +163,7 @@ async function remove() {
         </label>
       </ListSection>
 
-      <ListSection :footer="form.married ? t('people.spouseHint') : undefined">
+      <ListSection v-if="!couple" :footer="form.married ? t('people.spouseHint') : undefined">
         <div class="flex flex-col gap-2 px-4 py-3">
           <span class="text-[0.875rem] text-ink-2">{{ t('people.maritalLabel') }}</span>
           <SegmentedControl
@@ -166,7 +184,7 @@ async function remove() {
         </label>
       </ListSection>
 
-      <ListSection :footer="form.occasional ? t('people.occasionalHint') : undefined">
+      <ListSection :footer="attendanceHint">
         <div class="flex flex-col gap-2 px-4 py-3">
           <span class="text-[0.875rem] text-ink-2">{{ t('people.attendanceLabel') }}</span>
           <SegmentedControl

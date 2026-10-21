@@ -99,6 +99,10 @@
     "deleted": "Hai eliminato {name}",
     "attendanceLabel": "Presenza",
     "occasionalHint": "Non viene spesso. Gli occasionali vengono distribuiti tra i gruppi perché nessuno resti scoperto.",
+    "coupleHint": "Verranno aggiunte due persone sposate tra loro: {a} e {b}. Sesso ed età si completano poi nella scheda di ciascuno.",
+    "coupleCreated": "{a} e {b} aggiunti come coppia sposata",
+    "occasionalSpouse": "La frequenza vale anche per {name}.",
+    "occasionalBoth": "La frequenza vale per entrambi.",
     "filterOccasional": "Occasionali"
   },
   "import": {

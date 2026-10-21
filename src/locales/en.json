@@ -99,6 +99,10 @@
     "deleted": "{name} deleted",
     "attendanceLabel": "Attendance",
     "occasionalHint": "Doesn't come often. Occasional people are spread across groups so none ends up short-handed.",
+    "coupleHint": "Two people married to each other will be added: {a} and {b}. Fill in gender and age later in each one's details.",
+    "coupleCreated": "{a} and {b} added as a married couple",
+    "occasionalSpouse": "Attendance also applies to {name}.",
+    "occasionalBoth": "Attendance applies to both.",
     "filterOccasional": "Occasional"
   },
   "import": {

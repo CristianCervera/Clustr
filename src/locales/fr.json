@@ -99,6 +99,10 @@
     "deleted": "{name} supprimé(e)",
     "attendanceLabel": "Présence",
     "occasionalHint": "Ne vient pas souvent. Les occasionnels sont répartis entre les groupes pour qu'aucun ne soit dégarni.",
+    "coupleHint": "Deux personnes mariées entre elles seront ajoutées : {a} et {b}. Le sexe et l'âge se complètent ensuite dans la fiche de chacune.",
+    "coupleCreated": "{a} et {b} ajoutés comme couple marié",
+    "occasionalSpouse": "La présence s'applique aussi à {name}.",
+    "occasionalBoth": "La présence s'applique aux deux.",
     "filterOccasional": "Occasionnels"
   },
   "import": {

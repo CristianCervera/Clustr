@@ -50,6 +50,13 @@ export const usePeopleStore = defineStore('people', () => {
     return res.person
   }
 
+  /** Alta de un matrimonio escrito de una vez («Pepe y Pepa»): dos personas vinculadas. */
+  async function createCouple(first: PersonInput, second: PersonInput) {
+    const a = await create({ ...first, married: true, spouseId: null })
+    const b = await create({ ...second, married: true, spouseId: a.id })
+    return [a, b] as const
+  }
+
   async function update(id: string, input: Partial<PersonInput>) {
     const res = await api<Changed>(`/people/${id}`, { method: 'PATCH', body: input })
     merge(res.changed)
@@ -92,5 +99,5 @@ export const usePeopleStore = defineStore('people', () => {
     loaded.value = false
   }
 
-  return { people, loaded, loading, byId, activeCount, load, create, update, remove, removeAll, setActive, importRows, reset }
+  return { people, loaded, loading, byId, activeCount, load, create, createCouple, update, remove, removeAll, setActive, importRows, reset }
 })
