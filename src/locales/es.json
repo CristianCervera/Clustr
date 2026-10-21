@@ -200,7 +200,16 @@
     "generatedOn": "Generado el {date}",
     "spreadOccasional": "Repartir a los ocasionales",
     "spreadOccasionalHint": "Para que ningún grupo se quede cojo si no vienen.",
-    "occasionalCount": "1 ocasional | {n} ocasionales"
+    "occasionalCount": "1 ocasional | {n} ocasionales",
+    "head": "Cabeza",
+    "headsMenu": "Repartir por cabezas",
+    "headsIntro": "Elige un grupo: cada una de sus personas será cabeza de un grupo nuevo y el resto se repartirá entre ellos con los criterios de este reparto. Se crea un reparto aparte; este no cambia.",
+    "headsResult": "1 grupo | {n} grupos",
+    "headsNeedTwo": "Necesita 2 o más",
+    "headsNoRest": "No queda nadie fuera",
+    "headsSetName": "{name} · por cabezas",
+    "headsCreated": "Reparto por cabezas creado",
+    "regenerateHeadsBody": "Se volverá a repartir al resto con los mismos criterios. Cada cabeza sigue al frente de un grupo, con el nombre que tenga. Se pierden los cambios hechos a mano."
   },
   "profile": {
     "title": "Perfil",

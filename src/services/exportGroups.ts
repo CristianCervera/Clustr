@@ -1,18 +1,22 @@
-import { fullName, orderMembers, type GroupMember } from './people'
+import { fullName, isHead, orderMembers, type GroupMember } from './people'
 
 export interface ExportLabels {
   title: string
   subtitle: string
   groupName: (index: number) => string
   members: (count: number) => string
+  /** Marca del cabeza de un grupo («Cabeza»). */
+  head: string
 }
+
+const nameWithHead = (m: GroupMember, labels: ExportLabels) => (isHead(m) ? `${fullName(m)} (${labels.head})` : fullName(m))
 
 const idOf = (m: GroupMember) => ('id' in m ? m.id : m.personId)
 
 /** Texto plano para pegar en un chat. */
 export function groupsToText(groups: GroupMember[][], labels: ExportLabels): string {
   const blocks = groups.map((group, i) =>
-    [`*${labels.groupName(i)}* (${labels.members(group.length)})`, ...orderMembers(group).map((m) => `• ${fullName(m)}`)].join('\n'),
+    [`*${labels.groupName(i)}* (${labels.members(group.length)})`, ...orderMembers(group).map((m) => `• ${nameWithHead(m, labels)}`)].join('\n'),
   )
   return [labels.title, labels.subtitle, '', blocks.join('\n\n')].join('\n')
 }
@@ -105,7 +109,8 @@ export async function groupsToPdf(groups: GroupMember[][], labels: ExportLabels)
     doc.setTextColor(...NAVY)
     members.forEach((m, j) => {
       const ry = y + pad + 8 + j * row + 4
-      doc.text(doc.splitTextToSize(fullName(m), colW - pad * 2 - 4)[0] as string, x + pad + 4, ry)
+      doc.setFont('helvetica', isHead(m) ? 'bold' : 'normal')
+      doc.text(doc.splitTextToSize(nameWithHead(m, labels), colW - pad * 2 - 4)[0] as string, x + pad + 4, ry)
       if (pairedWithNext(j)) {
         doc.setDrawColor(...TEAL)
         doc.setLineWidth(0.8)

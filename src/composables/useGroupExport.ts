@@ -17,6 +17,7 @@ export function useGroupExport(groups: Ref<GroupMember[][]>, names: Ref<string[]
     subtitle: t('groups.generatedOn', { date: formatDate(date.value) }),
     groupName: (i) => names.value?.[i] || t('groups.group', { n: i + 1 }),
     members: (n) => t('groups.members', n),
+    head: t('groups.head'),
   })
 
   async function run(task: () => Promise<void>) {

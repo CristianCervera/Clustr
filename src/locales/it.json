@@ -200,7 +200,16 @@
     "generatedOn": "Creata il {date}",
     "spreadOccasional": "Distribuire gli occasionali",
     "spreadOccasionalHint": "Così nessun gruppo resta scoperto se non vengono.",
-    "occasionalCount": "1 occasionale | {n} occasionali"
+    "occasionalCount": "1 occasionale | {n} occasionali",
+    "head": "Capogruppo",
+    "headsMenu": "Dividi per capogruppo",
+    "headsIntro": "Scegli un gruppo: ognuna delle sue persone guiderà un nuovo gruppo e gli altri verranno divisi tra loro con i criteri di questa suddivisione. Se ne crea una a parte; questa non cambia.",
+    "headsResult": "1 gruppo | {n} gruppi",
+    "headsNeedTwo": "Servono 2 o più",
+    "headsNoRest": "Non resta nessuno fuori",
+    "headsSetName": "{name} · per capogruppo",
+    "headsCreated": "Suddivisione per capogruppo creata",
+    "regenerateHeadsBody": "Gli altri verranno divisi di nuovo con gli stessi criteri. Ogni capogruppo resta alla guida di un gruppo, con il suo nome. Le modifiche fatte a mano si perdono."
   },
   "profile": {
     "title": "Profilo",

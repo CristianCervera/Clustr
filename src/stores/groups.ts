@@ -78,6 +78,8 @@ export const useGroupsStore = defineStore('groups', () => {
 
   /** Vuelve a repartir a las mismas personas con los criterios del reparto. */
   async function regenerateSet(set: GroupSet) {
+    // En un reparto por cabezas, el servidor vuelve a mezclar al resto y deja a cada cabeza al frente.
+    if (set.groups.flat().some((m) => m.head)) return upsert(await api<GroupSet>(`/group-sets/${set.id}/remix`, { method: 'POST' }))
     const all = set.groups.flat()
     const ids = all.flatMap((m) => (m.personId ? [m.personId] : []))
     const { groups } = await generate({ ...DEFAULT_PREFERENCES, ...set.preferences }, ids)
@@ -89,6 +91,11 @@ export const useGroupsStore = defineStore('groups', () => {
       layout.reduce((a, b) => (b.length < a.length ? b : a)).push(i)
     })
     return updateSet(set.id, { layout })
+  }
+
+  /** Crea un reparto nuevo en el que cada miembro del grupo elegido encabeza un grupo con el resto. */
+  async function createHeadsSet(id: string, group: number, name: string) {
+    return upsert(await api<GroupSet>(`/group-sets/${id}/heads`, { method: 'POST', body: { group, name } }))
   }
 
   async function getSet(id: string) {
@@ -111,5 +118,5 @@ export const useGroupsStore = defineStore('groups', () => {
     setsLoaded.value = false
   }
 
-  return { sets, setsLoaded, loadSets, createSet, regenerateSet, getSet, updateSet, removeSet, reset }
+  return { sets, setsLoaded, loadSets, createSet, regenerateSet, createHeadsSet, getSet, updateSet, removeSet, reset }
 })

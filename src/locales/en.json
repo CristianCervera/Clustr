@@ -200,7 +200,16 @@
     "generatedOn": "Created {date}",
     "spreadOccasional": "Spread occasional people",
     "spreadOccasionalHint": "So no group ends up short-handed if they don't come.",
-    "occasionalCount": "1 occasional | {n} occasional"
+    "occasionalCount": "1 occasional | {n} occasional",
+    "head": "Leader",
+    "headsMenu": "Split by Leaders",
+    "headsIntro": "Choose a group: each of its people will lead a new group, and everyone else will be split among them using this set’s criteria. A separate set is created; this one stays as it is.",
+    "headsResult": "1 group | {n} groups",
+    "headsNeedTwo": "Needs 2 or more",
+    "headsNoRest": "No one else left",
+    "headsSetName": "{name} · by leaders",
+    "headsCreated": "Leader split created",
+    "regenerateHeadsBody": "Everyone else will be split again with the same criteria. Each leader keeps leading a group, with its name. Manual changes are lost."
   },
   "profile": {
     "title": "Profile",

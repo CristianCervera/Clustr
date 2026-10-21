@@ -50,10 +50,14 @@ export function estimateGroups(people: Person[], prefs: Pick<GroupPreferences, '
   return { groups, min: Math.floor(total / groups), max: Math.ceil(total / groups) }
 }
 
-/** Ordena los miembros de un grupo: matrimonios juntos, luego por nombre. */
+/** Quien encabeza su grupo en un reparto «por cabezas». */
+export const isHead = (m: object) => 'head' in m && Boolean(m.head)
+
+/** Ordena los miembros de un grupo: el cabeza primero, matrimonios juntos, luego por nombre. */
 export function orderMembers<T extends Named & { spouseId: string | null } & ({ id: string } | { personId: string | null })>(members: T[]): T[] {
   const idOf = (m: T) => ('id' in m ? m.id : m.personId)
-  const sorted = sortPeople(members)
+  // sort es estable: los cabezas suben sin perder el orden por nombre.
+  const sorted = sortPeople(members).sort((a, b) => Number(isHead(b)) - Number(isHead(a)))
   const out: T[] = []
   const used = new Set<T>()
   for (const m of sorted) {

@@ -54,6 +54,8 @@ export interface Member {
   /** No suele venir: se reparte entre los grupos para que ninguno se quede cojo. */
   occasional: boolean
   spouseId: string | null
+  /** Encabeza su grupo (reparto «por cabezas»). Los repartos antiguos no lo traen. */
+  head?: boolean
 }
 
 export interface GroupSet {

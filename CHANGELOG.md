@@ -1,5 +1,14 @@
 # Novedades
 
+## 0.8.0
+
+- **Repartir por cabezas.** En el menú «⋯» de un reparto, elige un grupo: cada una de sus personas encabeza un grupo
+  nuevo y el resto se reparte entre ellos con los mismos criterios. Se crea un reparto aparte («… · por cabezas») y el
+  original no cambia. Con «matrimonios juntos», el cónyuge de un cabeza va con él; con «separados», a otro grupo.
+- **Marca de cabeza.** El cabeza sale el primero de su grupo, en negrita y con la etiqueta «Cabeza», también en el PDF,
+  la imagen y el texto.
+- **Volver a generar** un reparto por cabezas mezcla solo al resto: cada cabeza sigue al frente de su grupo.
+
 ## 0.7.0
 
 - **Mover a un matrimonio junto.** Al cambiar de grupo a una persona casada cuyo cónyuge está en el reparto, la app

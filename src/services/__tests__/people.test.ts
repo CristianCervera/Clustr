@@ -47,8 +47,17 @@ describe('export', () => {
       subtitle: '20 oct',
       groupName: (i) => `Grupo ${i + 1}`,
       members: (n) => `${n} personas`,
+      head: 'Cabeza',
     })
     expect(text).toBe('Retiro\n20 oct\n\n*Grupo 1* (2 personas)\n• Ana\n• Luis\n\n*Grupo 2* (1 personas)\n• Eva')
+  })
+
+  it('pone al cabeza el primero, con su cónyuge detrás, y lo marca', () => {
+    const luis = { ...person('2', 'Luis', '3'), head: true }
+    const group = [person('1', 'Ana'), person('3', 'Eva', '2'), luis]
+    expect(orderMembers(group).map((p) => p.firstName)).toEqual(['Luis', 'Eva', 'Ana'])
+    const text = groupsToText([group], { title: 'R', subtitle: '', groupName: () => 'G', members: (n) => `${n}`, head: 'Cabeza' })
+    expect(text).toContain('• Luis (Cabeza)\n• Eva\n• Ana')
   })
 
   it('crea nombres de archivo seguros', () => {

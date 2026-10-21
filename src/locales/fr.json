@@ -200,7 +200,16 @@
     "generatedOn": "Créée le {date}",
     "spreadOccasional": "Répartir les occasionnels",
     "spreadOccasionalHint": "Pour qu'aucun groupe ne soit dégarni s'ils ne viennent pas.",
-    "occasionalCount": "1 occasionnel | {n} occasionnels"
+    "occasionalCount": "1 occasionnel | {n} occasionnels",
+    "head": "Responsable",
+    "headsMenu": "Répartir par responsables",
+    "headsIntro": "Choisissez un groupe : chacune de ses personnes sera responsable d’un nouveau groupe et les autres seront répartis entre eux avec les critères de cette répartition. Une répartition à part est créée ; celle-ci ne change pas.",
+    "headsResult": "1 groupe | {n} groupes",
+    "headsNeedTwo": "Il en faut 2 ou plus",
+    "headsNoRest": "Plus personne en dehors",
+    "headsSetName": "{name} · par responsables",
+    "headsCreated": "Répartition par responsables créée",
+    "regenerateHeadsBody": "Les autres seront répartis à nouveau avec les mêmes critères. Chaque responsable reste à la tête d’un groupe, avec son nom. Les modifications manuelles sont perdues."
   },
   "profile": {
     "title": "Profil",

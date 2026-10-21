@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
-import { ChevronLeft, Ellipsis, Pencil, RefreshCw, Trash2 } from 'lucide-vue-next'
+import { ChevronLeft, Crown, Ellipsis, Pencil, RefreshCw, Trash2 } from 'lucide-vue-next'
 import ExportMenu from '@/components/groups/ExportMenu.vue'
 import GroupGrid from '@/components/groups/GroupGrid.vue'
 import GroupNameSheet from '@/components/groups/GroupNameSheet.vue'
@@ -27,13 +27,20 @@ const formatDate = useFormatDate()
 const set = ref<GroupSet | null>(null)
 const error = ref('')
 
-onMounted(async () => {
-  try {
-    set.value = await store.getSet(props.id)
-  } catch (e) {
-    error.value = errorText(e, { NOT_FOUND: 'groups.notFound', VALIDATION: 'groups.notFound' })
-  }
-})
+// La vista se reutiliza al saltar de un reparto a otro (p. ej. al crear uno por cabezas): se recarga con el id.
+watch(
+  () => props.id,
+  async (id) => {
+    set.value = null
+    error.value = ''
+    try {
+      set.value = await store.getSet(id)
+    } catch (e) {
+      error.value = errorText(e, { NOT_FOUND: 'groups.notFound', VALIDATION: 'groups.notFound' })
+    }
+  },
+  { immediate: true },
+)
 
 const date = computed(() => new Date(set.value?.createdAt ?? Date.now()))
 const groupLabel = (i: number) => set.value?.groupNames[i] || t('groups.group', { n: i + 1 })
@@ -54,7 +61,12 @@ async function update(change: (current: GroupSet) => Promise<GroupSet>) {
 const generating = ref(false)
 const generation = ref(0)
 async function regenerate() {
-  const ok = await ui.confirm({ title: t('groups.regenerateTitle'), message: t('groups.regenerateBody'), confirmLabel: t('groups.regenerate') })
+  const hasHeads = set.value?.groups.flat().some((m) => m.head)
+  const ok = await ui.confirm({
+    title: t('groups.regenerateTitle'),
+    message: t(hasHeads ? 'groups.regenerateHeadsBody' : 'groups.regenerateBody'),
+    confirmLabel: t('groups.regenerate'),
+  })
   if (!ok) return
   generating.value = true
   if (await update((current) => store.regenerateSet(current))) generation.value++
@@ -109,6 +121,26 @@ async function rename() {
   renaming.value = false
 }
 
+// Repartir por cabezas: los miembros de un grupo encabezan cada uno un grupo nuevo con el resto.
+const headsOpen = ref(false)
+const creatingHeads = ref(false)
+const total = computed(() => set.value?.groups.flat().length ?? 0)
+const canLead = (group: Member[]) => group.length >= 2 && total.value > group.length
+async function createHeads(index: number) {
+  if (!set.value) return
+  creatingHeads.value = true
+  try {
+    const created = await store.createHeadsSet(set.value.id, index, t('groups.headsSetName', { name: set.value.name }).slice(0, 80))
+    headsOpen.value = false
+    ui.toast(t('groups.headsCreated'))
+    await router.push(`/groups/${created.id}`)
+  } catch (e) {
+    ui.toast(errorText(e), 'error')
+  } finally {
+    creatingHeads.value = false
+  }
+}
+
 async function remove() {
   if (!set.value) return
   const ok = await ui.confirm({
@@ -136,6 +168,7 @@ const menu = computed(() => [
       renameOpen.value = true
     },
   },
+  { label: t('groups.headsMenu'), icon: Crown, action: () => (headsOpen.value = true) },
   { label: t('groups.deleteSet'), icon: Trash2, destructive: true, action: remove },
 ])
 </script>
@@ -176,6 +209,28 @@ const menu = computed(() => [
           <button type="button" class="flex min-h-[52px] w-full items-center justify-between gap-3 px-4 text-left disabled:opacity-50" :disabled="i === moving.from" @click="moveTo(i)">
             <span class="truncate font-medium">{{ groupLabel(i) }}</span>
             <span class="shrink-0 text-[0.875rem] text-ink-2">{{ i === moving.from ? t('groups.currentGroup') : t('groups.members', group.length) }}</span>
+          </button>
+        </li>
+      </ul>
+    </AppSheet>
+
+    <AppSheet :open="headsOpen" :title="t('groups.headsMenu')" @close="headsOpen = false">
+      <p class="px-1 pb-3 pt-2 text-[0.9375rem] text-ink-2">{{ t('groups.headsIntro') }}</p>
+      <ul v-if="set" class="divide-y divide-line overflow-hidden rounded-2xl bg-surface">
+        <li v-for="(group, i) in set.groups" :key="i">
+          <button
+            type="button"
+            class="flex min-h-[60px] w-full items-center gap-3 px-4 py-2 text-left disabled:opacity-50"
+            :disabled="!canLead(group) || creatingHeads"
+            @click="createHeads(i)"
+          >
+            <span class="min-w-0 flex-1">
+              <span class="block truncate font-medium">{{ groupLabel(i) }}</span>
+              <span class="block truncate text-[0.875rem] text-ink-2">{{ group.map((m) => m.firstName).join(', ') }}</span>
+            </span>
+            <span class="shrink-0 text-[0.875rem] text-ink-2">
+              {{ group.length < 2 ? t('groups.headsNeedTwo') : !canLead(group) ? t('groups.headsNoRest') : t('groups.headsResult', group.length) }}
+            </span>
           </button>
         </li>
       </ul>

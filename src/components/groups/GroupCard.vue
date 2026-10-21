@@ -2,7 +2,7 @@
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { Pencil } from 'lucide-vue-next'
-import { fullName, orderMembers, type GroupMember } from '@/services/people'
+import { fullName, isHead, orderMembers, type GroupMember } from '@/services/people'
 
 /**
  * Tarjeta de un grupo. A la izquierda de los nombres corre el «hilo» del logo:
@@ -69,7 +69,8 @@ const composition = computed(() => {
           <span class="relative grid h-6 w-6 shrink-0 place-items-center" aria-hidden="true">
             <span class="h-2.5 w-2.5 rounded-full ring-[3px]" :class="m.spouseId && (linkedToNext(i) || linkedToNext(i - 1)) ? 'bg-accent-fill ring-teal' : 'bg-accent-fill ring-accent-soft'" />
           </span>
-          <span class="truncate">{{ fullName(m) }}</span>
+          <span class="truncate" :class="{ 'font-semibold': isHead(m) }">{{ fullName(m) }}</span>
+          <span v-if="isHead(m)" class="shrink-0 rounded-full bg-accent-soft px-2 py-0.5 text-[0.75rem] font-semibold text-accent">{{ t('groups.head') }}</span>
         </component>
       </li>
     </ul>
