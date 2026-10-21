@@ -1,5 +1,11 @@
 # Novedades
 
+## 0.11.0
+
+- **Renombrar y eliminar desde la lista.** En Grupos, cada reparto tiene un botón «⋯» con Renombrar y Eliminar reparto
+  (con confirmación), sin tener que abrirlo.
+- La lista de repartos ya no lleva la flecha «›»: la tarjeta se sigue abriendo al pulsarla.
+
 ## 0.10.0
 
 - **Loader propio.** Mientras hay peticiones en curso sale arriba una cápsula con el logo animado: los nodos llegan
