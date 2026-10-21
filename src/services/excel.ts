@@ -1,5 +1,5 @@
 import type { Gender, Person } from '@/types'
-import { orderMembers, searchKey } from './people'
+import { orderMembers, searchKey, splitCouple } from './people'
 
 export interface ImportRow {
   firstName: string
@@ -68,26 +68,45 @@ export function parseSheet(sheet: unknown[][]): ParseResult {
   const skipped: number[] = []
   body.forEach((row, i) => {
     if (row.every((c) => text(c) === '')) return
-    const firstName = text(cell(row, 'firstName')).slice(0, LIMITS.firstName)
-    if (!firstName) {
+    const name = text(cell(row, 'firstName'))
+    if (!name) {
       skipped.push(i + 2)
       return
     }
-    const spouseName = text(cell(row, 'spouse')).slice(0, LIMITS.spouse)
+    const lastName = text(cell(row, 'lastName'))
     const rawEmail = text(cell(row, 'email')).toLowerCase()
     const validEmail = EMAIL.test(rawEmail) && rawEmail.length <= LIMITS.email
-    rows.push({
-      firstName,
-      lastName: text(cell(row, 'lastName')).slice(0, LIMITS.lastName),
+    const base = {
       gender: null,
       age: null,
-      married: Boolean(spouseName),
-      ...(spouseName ? { spouseName } : {}),
       phone: text(cell(row, 'phone')).slice(0, LIMITS.phone),
       email: validEmail ? rawEmail : '',
       // Un email mal escrito no impide importar a la persona: se guarda en las notas.
       notes: rawEmail && !validEmail ? rawEmail.slice(0, LIMITS.notes) : '',
       active: true,
+    }
+    const fullName = (first: string, last: string) => `${first} ${last}`.trim().slice(0, LIMITS.spouse)
+
+    // «Jorge y Amparo» en una sola fila: dos personas casadas entre sí. Si los apellidos también
+    // vienen de dos en dos («García y López») se reparten; si no, los comparten.
+    const couple = splitCouple(name)
+    if (couple) {
+      const lastNames = splitCouple(lastName) ?? [lastName, lastName]
+      const people = couple.map((first, k) => ({ firstName: first.slice(0, LIMITS.firstName), lastName: lastNames[k]!.slice(0, LIMITS.lastName) }))
+      people.forEach((person, k) => {
+        const other = people[1 - k]!
+        rows.push({ ...person, ...base, married: true, spouseName: fullName(other.firstName, other.lastName) })
+      })
+      return
+    }
+
+    const spouseName = text(cell(row, 'spouse')).slice(0, LIMITS.spouse)
+    rows.push({
+      firstName: name.slice(0, LIMITS.firstName),
+      lastName: lastName.slice(0, LIMITS.lastName),
+      ...base,
+      married: Boolean(spouseName),
+      ...(spouseName ? { spouseName } : {}),
     })
   })
   return { rows, skipped, missingNameColumn: false }

@@ -17,6 +17,16 @@ export function sortPeople<T extends Named>(people: T[]): T[] {
 }
 
 /** Texto comparable para búsquedas: sin tildes ni mayúsculas. */
+/** «y», «e», «and», «et», «&», «+» o «/» entre dos nombres: un matrimonio escrito en una sola fila. */
+const COUPLE = /\s+(?:y|e|and|et|&|\+)\s+|\s*[&+/]\s*/i
+
+/** Separa «Jorge y Amparo» en los dos nombres; devuelve null si no es una pareja. */
+export function splitCouple(value: string): [string, string] | null {
+  const parts = value.split(COUPLE).map((part) => part.trim())
+  if (parts.length !== 2 || !parts.every((part) => /\p{L}/u.test(part))) return null
+  return parts as [string, string]
+}
+
 export function searchKey(text: string): string {
   return text
     .normalize('NFD')

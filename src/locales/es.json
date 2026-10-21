@@ -106,7 +106,7 @@
     "intro": "Sube un archivo .xlsx con una persona por fila. La primera fila debe tener los nombres de las columnas:",
     "columnsRequired": "Nombre (obligatoria)",
     "columnsOptional": "Apellidos, Teléfono, Email, Cónyuge",
-    "spouseTip": "Para los matrimonios, escribe en «Cónyuge» el nombre completo de su pareja. Siempre quedarán vinculados para ir juntos en los grupos; si la pareja no tiene fila propia, se añade a la lista.",
+    "spouseTip": "Para los matrimonios, escribe en «Cónyuge» el nombre completo de su pareja. Siempre quedarán vinculados para ir juntos en los grupos; si la pareja no tiene fila propia, se añade a la lista. También puedes poner a los dos en la misma fila, como «Jorge y Amparo»: se separan en dos personas casadas.",
     "downloadTemplate": "Descargar plantilla",
     "chooseFile": "Elegir archivo",
     "reading": "Leyendo el archivo…",

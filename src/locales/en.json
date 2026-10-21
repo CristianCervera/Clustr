@@ -106,7 +106,7 @@
     "intro": "Upload an .xlsx file with one person per row. The first row must contain the column names:",
     "columnsRequired": "First name (required)",
     "columnsOptional": "Last name, Phone, Email, Spouse",
-    "spouseTip": "For married couples, enter the spouse's full name in “Spouse”. They'll always be linked so they stay together in groups; if the spouse has no row of their own, they're added to the list.",
+    "spouseTip": "For married couples, enter the spouse's full name in “Spouse”. They'll always be linked so they stay together in groups; if the spouse has no row of their own, they're added to the list. You can also put both in one row, like “John and Mary”: they're split into two married people.",
     "downloadTemplate": "Download Template",
     "chooseFile": "Choose File",
     "reading": "Reading the file…",

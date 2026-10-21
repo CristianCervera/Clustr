@@ -38,6 +38,8 @@ Una persona por fila; la primera fila, cabeceras. Columnas: **Nombre** (obligato
 Cónyuge. Las cabeceras se aceptan en español, inglés, italiano y francés; otras columnas se ignoran.
 Quien tiene «Cónyuge» está casado y queda siempre vinculado a su pareja, para que vayan juntos en los grupos. La pareja
 se busca por nombre completo (o solo por el nombre si no hay dudas); si no tiene fila propia, se añade a la lista.
+Un matrimonio escrito en una sola fila («Jorge y Amparo», también con «e», «and», «et», «&», «+» o «/») se separa en
+dos personas casadas entre sí, con los mismos apellidos o, si vienen de dos en dos («García y López»), uno para cada una.
 Descarga la plantilla desde la propia importación o desde Perfil.
 
 ## Diseño

@@ -52,3 +52,35 @@ describe('parseSheet', () => {
     expect(parseSheet([['Foo', 'Bar'], ['x', 'y']]).missingNameColumn).toBe(true)
   })
 })
+
+describe('matrimonios en una sola fila', () => {
+  it('separa «Jorge y Amparo» en dos personas casadas entre sí', () => {
+    const { rows } = parseSheet([
+      ['Nombre', 'Apellidos', 'Teléfono', 'Cónyuge'],
+      ['Jorge y Amparo', 'García', '600111222', ''],
+      ['Pedro e Isabel', 'Ruiz y López', '', ''],
+      ['Tom & Mary', '', '', 'Ignorado'],
+      ['Marta', 'Soler', '', ''],
+    ])
+    expect(rows.map((r) => [r.firstName, r.lastName, r.married, r.spouseName])).toEqual([
+      ['Jorge', 'García', true, 'Amparo García'],
+      ['Amparo', 'García', true, 'Jorge García'],
+      ['Pedro', 'Ruiz', true, 'Isabel López'],
+      ['Isabel', 'López', true, 'Pedro Ruiz'],
+      ['Tom', '', true, 'Mary'],
+      ['Mary', '', true, 'Tom'],
+      ['Marta', 'Soler', false, undefined],
+    ])
+    expect(rows[1]).toMatchObject({ phone: '600111222' })
+  })
+
+  it('no separa nombres sin conjunción ni con más de dos personas', () => {
+    const { rows } = parseSheet([['Nombre'], ['María José'], ['Yolanda'], ['Ana y Luis y Eva'], ['Juan Esteban']])
+    expect(rows.map((r) => [r.firstName, r.married])).toEqual([
+      ['María José', false],
+      ['Yolanda', false],
+      ['Ana y Luis y Eva', false],
+      ['Juan Esteban', false],
+    ])
+  })
+})

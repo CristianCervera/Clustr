@@ -106,7 +106,7 @@
     "intro": "Carica un file .xlsx con una persona per riga. La prima riga deve contenere i nomi delle colonne:",
     "columnsRequired": "Nome (obbligatoria)",
     "columnsOptional": "Cognome, Telefono, Email, Coniuge",
-    "spouseTip": "Per le coppie sposate, scrivi in «Coniuge» il nome completo del partner. Resteranno sempre collegati per stare insieme nei gruppi; se il partner non ha una riga propria, viene aggiunto all'elenco.",
+    "spouseTip": "Per le coppie sposate, scrivi in «Coniuge» il nome completo del partner. Resteranno sempre collegati per stare insieme nei gruppi; se il partner non ha una riga propria, viene aggiunto all'elenco. Puoi anche mettere entrambi nella stessa riga, come «Marco e Giulia»: vengono separati in due persone sposate.",
     "downloadTemplate": "Scarica modello",
     "chooseFile": "Scegli file",
     "reading": "Lettura del file…",

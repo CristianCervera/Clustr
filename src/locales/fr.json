@@ -106,7 +106,7 @@
     "intro": "Importez un fichier .xlsx avec une personne par ligne. La première ligne doit contenir le nom des colonnes :",
     "columnsRequired": "Prénom (obligatoire)",
     "columnsOptional": "Nom, Téléphone, E-mail, Conjoint",
-    "spouseTip": "Pour les couples mariés, indiquez dans « Conjoint » le nom complet du conjoint. Ils seront toujours associés pour rester ensemble dans les groupes ; si le conjoint n'a pas sa propre ligne, il est ajouté à la liste.",
+    "spouseTip": "Pour les couples mariés, indiquez dans « Conjoint » le nom complet du conjoint. Ils seront toujours associés pour rester ensemble dans les groupes ; si le conjoint n'a pas sa propre ligne, il est ajouté à la liste. Vous pouvez aussi mettre les deux sur une même ligne, comme « Jean et Marie » : ils sont séparés en deux personnes mariées.",
     "downloadTemplate": "Télécharger le modèle",
     "chooseFile": "Choisir un fichier",
     "reading": "Lecture du fichier…",
