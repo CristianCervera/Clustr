@@ -11,8 +11,11 @@ export interface ConfirmRequest {
   title: string
   message?: string
   confirmLabel: string
+  /** Texto del botón de la izquierda, si no es «Cancelar» (p. ej. «Solo Jorge»). */
+  cancelLabel?: string
   destructive?: boolean
-  resolve: (ok: boolean) => void
+  /** `null` cuando se descarta con Escape sin elegir ningún botón. */
+  resolve: (ok: boolean | null) => void
 }
 
 const SIDEBAR_KEY = 'clustr.sidebarHidden'
@@ -52,14 +55,14 @@ export const useUiStore = defineStore('ui', () => {
     toasts.value = toasts.value.filter((t) => t.id !== id)
   }
 
-  function confirm(options: Omit<ConfirmRequest, 'resolve'>): Promise<boolean> {
-    confirmRequest.value?.resolve(false)
+  function confirm(options: Omit<ConfirmRequest, 'resolve'>): Promise<boolean | null> {
+    confirmRequest.value?.resolve(null)
     return new Promise((resolve) => {
       confirmRequest.value = { ...options, resolve }
     })
   }
 
-  function answer(ok: boolean) {
+  function answer(ok: boolean | null) {
     confirmRequest.value?.resolve(ok)
     confirmRequest.value = null
   }

@@ -11,7 +11,7 @@ import MenuButton from '@/components/ui/MenuButton.vue'
 import { useErrorText } from '@/composables/useErrorText'
 import { useFormatDate } from '@/composables/useFormatDate'
 import { fullName, type GroupMember } from '@/services/people'
-import { moveMember, useGroupsStore } from '@/stores/groups'
+import { moveMember, spouseIn, useGroupsStore } from '@/stores/groups'
 import { useUiStore } from '@/stores/ui'
 import type { GroupSet, Member } from '@/types'
 
@@ -68,9 +68,22 @@ function select(member: GroupMember, from: number) {
 }
 async function moveTo(index: number) {
   const target = moving.value
-  if (!target) return
+  if (!target || !set.value) return
   moving.value = null
-  await update((current) => store.updateSet(current.id, moveMember(current, target.member, index)))
+  // Si su cónyuge está en el reparto (y no ya en ese grupo), se pregunta si va con él.
+  const couple = spouseIn(set.value, target.member)
+  let members = [target.member]
+  if (couple && couple.group !== index) {
+    const both = await ui.confirm({
+      title: t('groups.moveSpouseTitle', { name: couple.spouse.firstName }),
+      message: t('groups.moveSpouseBody', { a: target.member.firstName, b: couple.spouse.firstName, group: groupLabel(index) }),
+      confirmLabel: t('groups.moveBoth'),
+      cancelLabel: t('groups.moveOnly', { name: target.member.firstName }),
+    })
+    if (both === null) return
+    if (both) members = [target.member, couple.spouse]
+  }
+  await update((current) => store.updateSet(current.id, moveMember(current, members, index)))
 }
 
 // Nombre de un grupo.

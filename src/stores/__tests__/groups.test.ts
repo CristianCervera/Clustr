@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { layoutOf, moveMember } from '../groups'
+import { layoutOf, moveMember, spouseIn } from '../groups'
 import type { GroupSet, Member } from '@/types'
 
 const m = (id: string): Member => ({
@@ -26,5 +26,21 @@ describe('repartos', () => {
     const set = setOf([[a], [b], [c]], ['Leones', '', 'Águilas'])
     expect(moveMember(set, b, 0)).toEqual({ layout: [[0, 1], [2]], groupNames: ['Leones', 'Águilas'] })
     expect(moveMember(set, a, 2)).toEqual({ layout: [[1], [2, 0]], groupNames: ['', 'Águilas'] })
+  })
+
+  it('encuentra al cónyuge dentro del reparto y su grupo', () => {
+    const [a, b, c] = [{ ...m('a'), married: true, spouseId: 'c' }, m('b'), { ...m('c'), married: true, spouseId: 'a' }]
+    const set = setOf([[a, b], [c]], [])
+    expect(spouseIn(set, a)).toEqual({ spouse: c, group: 1 })
+    expect(spouseIn(set, b)).toBeNull()
+    // Su cónyuge no está en este reparto.
+    expect(spouseIn(set, { ...m('d'), married: true, spouseId: 'x' })).toBeNull()
+  })
+
+  it('mueve a un matrimonio a la vez', () => {
+    const [a, b, c, d] = [m('a'), m('b'), m('c'), m('d')]
+    const set = setOf([[a, b], [c], [d]], ['', 'Solo', ''])
+    // c y d se van al primer grupo; el suyo se queda vacío y desaparece con su nombre.
+    expect(moveMember(set, [c, d], 0)).toEqual({ layout: [[0, 1, 2, 3]], groupNames: [''] })
   })
 })

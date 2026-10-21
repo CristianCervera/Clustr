@@ -28,10 +28,21 @@ export function layoutOf(groups: Member[][], all: Member[] = groups.flat()): num
   return groups.map((g) => g.map((m) => all.indexOf(m)))
 }
 
-/** Mueve a un miembro a otro grupo; los grupos que se quedan vacíos desaparecen, y su nombre con ellos. */
-export function moveMember(set: GroupSet, member: Member, toGroup: number) {
-  const groups = set.groups.map((g) => g.filter((m) => m !== member))
-  groups[toGroup]?.push(member)
+/** Busca al cónyuge de un miembro dentro del mismo reparto y el grupo en el que está. */
+export function spouseIn(set: GroupSet, member: Member): { spouse: Member; group: number } | null {
+  if (!member.spouseId) return null
+  for (const [group, members] of set.groups.entries()) {
+    const spouse = members.find((m) => m.personId === member.spouseId)
+    if (spouse) return { spouse, group }
+  }
+  return null
+}
+
+/** Mueve a uno o varios miembros a otro grupo; los grupos que se quedan vacíos desaparecen, y su nombre con ellos. */
+export function moveMember(set: GroupSet, member: Member | Member[], toGroup: number) {
+  const moving = Array.isArray(member) ? member : [member]
+  const groups = set.groups.map((g) => g.filter((m) => !moving.includes(m)))
+  groups[toGroup]?.push(...moving)
   const kept = groups.map((g, i) => ({ g, name: set.groupNames[i] ?? '' })).filter(({ g }) => g.length)
   return { layout: layoutOf(kept.map(({ g }) => g), set.groups.flat()), groupNames: kept.map(({ name }) => name) }
 }

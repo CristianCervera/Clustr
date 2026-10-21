@@ -4,7 +4,7 @@ import { useI18n } from 'vue-i18n'
 import { trapTab } from '@/composables/focusTrap'
 import { useUiStore } from '@/stores/ui'
 
-/** Alerta de confirmación para acciones destructivas. Cancelar es la opción por defecto. */
+/** Alerta de confirmación, o de elegir entre dos opciones. El botón de la izquierda es la opción por defecto. */
 const ui = useUiStore()
 const { t } = useI18n()
 const cancelButton = ref<HTMLButtonElement>()
@@ -29,7 +29,7 @@ watch(
 // Las teclas se quedan en la alerta: si está sobre una hoja, Escape no debe cerrar también la hoja.
 function onKeydown(e: KeyboardEvent) {
   e.stopPropagation()
-  if (e.key === 'Escape') ui.answer(false)
+  if (e.key === 'Escape') ui.answer(null)
   trapTab(e, dialog.value)
 }
 </script>
@@ -45,7 +45,7 @@ function onKeydown(e: KeyboardEvent) {
           </div>
           <div class="grid grid-cols-2 border-t border-line">
             <button ref="cancelButton" type="button" class="min-h-[48px] border-r border-line text-accent" @click="ui.answer(false)">
-              {{ t('common.cancel') }}
+              {{ ui.confirmRequest.cancelLabel ?? t('common.cancel') }}
             </button>
             <button
               type="button"

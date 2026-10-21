@@ -1,5 +1,11 @@
 # Novedades
 
+## 0.7.0
+
+- **Mover a un matrimonio junto.** Al cambiar de grupo a una persona casada cuyo cónyuge está en el reparto, la app
+  pregunta «¿Mover también a Amparo?»: «Mover a los dos» se los lleva juntos, «Solo Jorge» mueve solo a esa persona y
+  Escape no mueve a nadie. Si el cónyuge ya está en ese grupo, no pregunta.
+
 ## 0.6.0
 
 - **Reparto en móviles pequeños.** A 320 px (iPhone SE) el botón «⋯» para renombrar o borrar un reparto se salía de la
