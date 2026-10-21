@@ -210,7 +210,8 @@ async function remove() {
       <p v-if="error" class="mb-4 px-4 text-[0.875rem] text-danger" role="alert">{{ error }}</p>
 
       <button v-if="person" type="button" class="btn-danger w-full" @click="remove">{{ t('people.deletePerson') }}</button>
-      <button type="submit" class="sr-only">{{ t('common.save') }}</button>
+      <!-- Solo para que Intro guarde; Guardar ya está en la cabecera y no debe ser una parada de Tab invisible. -->
+      <button type="submit" class="sr-only" tabindex="-1" aria-hidden="true">{{ t('common.save') }}</button>
     </form>
   </AppSheet>
 </template>

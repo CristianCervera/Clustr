@@ -54,7 +54,11 @@
   "marital": {
     "single": "Soltero/a",
     "married": "Casado/a",
-    "marriedTo": "Casado/a con {name}"
+    "marriedTo": "Casado/a con {name}",
+    "marriedMale": "Casado",
+    "marriedFemale": "Casada",
+    "marriedToMale": "Casado con {name}",
+    "marriedToFemale": "Casada con {name}"
   },
   "attendance": {
     "regular": "Habitual",
@@ -156,7 +160,7 @@
     "generate": "Generar grupos",
     "generating": "Generando…",
     "regenerate": "Volver a generar",
-    "resultHint": "Toca a una persona para moverla a otro grupo.",
+    "resultHint": "Pulsa en una persona para moverla a otro grupo.",
     "group": "Grupo {n}",
     "newSet": "Nuevo",
     "noSetsTitle": "Aún no hay repartos",

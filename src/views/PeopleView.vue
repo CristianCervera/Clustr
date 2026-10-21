@@ -45,11 +45,14 @@ const visible = computed(() => {
   })
 })
 
+/** «Casado/a» solo cuando no se sabe el sexo; si se sabe, concuerda. */
+const genderSuffix = (p: Person) => (p.gender === 'male' ? 'Male' : p.gender === 'female' ? 'Female' : '')
+
 function details(p: Person): string {
   const spouse = p.spouseId ? store.byId.get(p.spouseId) : undefined
   // El vínculo primero: es lo que más importa al hacer grupos y lo primero que se cortaría.
   return [
-    spouse ? t('marital.marriedTo', { name: spouse.firstName }) : p.married ? t('marital.married') : '',
+    spouse ? t(`marital.marriedTo${genderSuffix(p)}`, { name: spouse.firstName }) : p.married ? t(`marital.married${genderSuffix(p)}`) : '',
     p.occasional ? t('attendance.occasional') : '',
     p.age !== null ? t('people.age', { n: p.age }) : '',
     p.gender ? t(`gender.${p.gender}`) : '',
@@ -120,9 +123,10 @@ function openPerson(person: Person | null) {
             <PersonAvatar :person="p" />
             <span class="min-w-0 flex-1" :class="{ 'opacity-60': !p.active }">
               <span class="block truncate font-medium">{{ fullName(p) }}</span>
-              <span class="flex items-center gap-1 truncate text-[0.875rem] text-ink-2">
+              <span class="flex items-center gap-1 text-[0.875rem] text-ink-2">
                 <Link2 v-if="p.spouseId" :size="14" class="shrink-0 text-teal-strong" aria-hidden="true" />
-                {{ details(p) }}
+                <!-- La elipsis solo se pinta en un bloque, no en el texto suelto de un flex. -->
+                <span class="min-w-0 truncate">{{ details(p) }}</span>
               </span>
             </span>
             <span v-if="!p.active" class="shrink-0 rounded-full bg-surface-2 px-2.5 py-1 text-[0.75rem] font-medium text-ink-2">{{ t('people.inactive') }}</span>

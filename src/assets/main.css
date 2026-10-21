@@ -13,6 +13,8 @@
   --canvas: #f4f6fa;
   --surface: #ffffff;
   --surface-2: #eef1f7;
+  /* Lo que se eleva sobre surface-2: el segmento elegido. */
+  --raised: #ffffff;
   --line: rgb(14 22 64 / 0.1);
   --ink: #0e1640;
   --ink-2: #5b6478;
@@ -31,6 +33,7 @@
   --canvas: #0b0f1e;
   --surface: #151a2c;
   --surface-2: #1d2337;
+  --raised: #343d5c;
   --line: rgb(238 241 248 / 0.1);
   --ink: #eef1f8;
   --ink-2: #9aa3b8;
@@ -65,6 +68,7 @@
   --color-canvas: var(--canvas);
   --color-surface: var(--surface);
   --color-surface-2: var(--surface-2);
+  --color-raised: var(--raised);
   --color-line: var(--line);
   --color-ink: var(--ink);
   --color-ink-2: var(--ink-2);

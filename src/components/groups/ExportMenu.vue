@@ -27,9 +27,10 @@ const items = computed<MenuItem[]>(() => [
 
 <template>
   <MenuButton :items="items" :label="t('groups.export')">
-    <span class="btn-secondary">
+    <!-- En móvil, solo el icono: con el texto, «Más opciones» se salía de la pantalla a 320 px. -->
+    <span class="btn-secondary max-sm:size-11 max-sm:!px-0">
       <Share :size="18" aria-hidden="true" />
-      {{ exp.exporting.value ? t('groups.exporting') : t('groups.export') }}
+      <span class="max-sm:sr-only">{{ exp.exporting.value ? t('groups.exporting') : t('groups.export') }}</span>
     </span>
   </MenuButton>
   <div ref="posterWrap" class="pointer-events-none fixed left-[-20000px] top-0" aria-hidden="true">

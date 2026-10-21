@@ -130,10 +130,10 @@ const menu = computed(() => [
 <template>
   <div class="mx-auto max-w-6xl px-4" style="padding-top: max(env(safe-area-inset-top), 0.75rem)">
     <nav class="flex items-center justify-between gap-2 pt-2">
-      <RouterLink to="/groups" class="btn-plain -ml-3 !px-2 font-normal">
-        <ChevronLeft :size="22" aria-hidden="true" />{{ t('groups.title') }}
+      <RouterLink to="/groups" class="btn-plain -ml-3 min-w-0 !px-2 font-normal">
+        <ChevronLeft :size="22" class="shrink-0" aria-hidden="true" /><span class="truncate">{{ t('groups.title') }}</span>
       </RouterLink>
-      <div v-if="set" class="flex items-center gap-1">
+      <div v-if="set" class="flex shrink-0 items-center gap-1">
         <button type="button" class="grid h-11 w-11 place-items-center rounded-full text-accent hover:bg-accent-soft" :aria-label="t('groups.regenerate')" :title="t('groups.regenerate')" :disabled="generating" @click="regenerate">
           <RefreshCw :size="20" :class="{ 'animate-spin': generating }" aria-hidden="true" />
         </button>

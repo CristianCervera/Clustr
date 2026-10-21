@@ -34,9 +34,9 @@ const composition = computed(() => {
 
 <template>
   <article class="min-w-0 rounded-[1.25rem] bg-surface p-4 shadow-card" :aria-labelledby="`group-${index}`">
-    <!-- Si el nombre es largo, el resumen pasa a la línea de abajo. -->
-    <header class="mb-2 flex flex-wrap items-center gap-x-2.5 gap-y-0.5">
-      <div class="flex min-w-0 max-w-full items-center gap-2.5">
+    <!-- El resumen siempre debajo del nombre: así todas las tarjetas de una fila empiezan a la misma altura. -->
+    <header class="mb-2">
+      <div class="flex min-w-0 items-center gap-2.5">
         <span class="relative grid h-7 w-7 shrink-0 place-items-center rounded-full bg-teal/25" aria-hidden="true">
           <span class="h-3.5 w-3.5 rounded-full bg-accent-fill" />
         </span>
@@ -52,9 +52,9 @@ const composition = computed(() => {
           <Pencil :size="15" aria-hidden="true" />
         </button>
       </div>
-      <span class="ml-auto whitespace-nowrap text-right text-[0.8125rem] tabular-nums text-ink-2">
+      <p class="mt-0.5 pl-[2.375rem] text-[0.8125rem] tabular-nums text-ink-2">
         {{ t('groups.members', members.length) }}<template v-if="composition"> · {{ composition }}</template>
-      </span>
+      </p>
     </header>
     <ul>
       <li v-for="(m, i) in ordered" :key="`${idOf(m)}-${i}`" class="relative">

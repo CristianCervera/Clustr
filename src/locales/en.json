@@ -54,7 +54,11 @@
   "marital": {
     "single": "Single",
     "married": "Married",
-    "marriedTo": "Married to {name}"
+    "marriedTo": "Married to {name}",
+    "marriedMale": "Married",
+    "marriedFemale": "Married",
+    "marriedToMale": "Married to {name}",
+    "marriedToFemale": "Married to {name}"
   },
   "attendance": {
     "regular": "Regular",
@@ -156,7 +160,7 @@
     "generate": "Make Groups",
     "generating": "Making groups…",
     "regenerate": "Shuffle Again",
-    "resultHint": "Tap a person to move them to another group.",
+    "resultHint": "Select a person to move them to another group.",
     "group": "Group {n}",
     "newSet": "New",
     "noSetsTitle": "No group sets yet",

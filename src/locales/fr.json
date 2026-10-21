@@ -54,7 +54,11 @@
   "marital": {
     "single": "Célibataire",
     "married": "Marié(e)",
-    "marriedTo": "Marié(e) à {name}"
+    "marriedTo": "Marié(e) à {name}",
+    "marriedMale": "Marié",
+    "marriedFemale": "Mariée",
+    "marriedToMale": "Marié à {name}",
+    "marriedToFemale": "Mariée à {name}"
   },
   "attendance": {
     "regular": "Habituel",
@@ -156,7 +160,7 @@
     "generate": "Créer les groupes",
     "generating": "Création…",
     "regenerate": "Mélanger à nouveau",
-    "resultHint": "Touchez une personne pour la déplacer dans un autre groupe.",
+    "resultHint": "Sélectionnez une personne pour la déplacer dans un autre groupe.",
     "group": "Groupe {n}",
     "newSet": "Nouveau",
     "noSetsTitle": "Aucune répartition pour l'instant",

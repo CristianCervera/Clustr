@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { nextTick, onBeforeUnmount, ref, useId, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
+import { trapTab } from '@/composables/focusTrap'
 
 /**
  * Hoja modal: sube desde abajo en móvil (con asa y gesto para cerrar) y es un diálogo centrado
@@ -24,6 +25,7 @@ let returnFocus: HTMLElement | null = null
 
 function onKey(e: KeyboardEvent) {
   if (e.key === 'Escape') emit('close')
+  trapTab(e, panel.value)
 }
 
 watch(

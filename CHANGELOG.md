@@ -1,5 +1,18 @@
 # Novedades
 
+## 0.6.0
+
+- **Reparto en móviles pequeños.** A 320 px (iPhone SE) el botón «⋯» para renombrar o borrar un reparto se salía de la
+  pantalla; ahora Exportar se queda en icono y caben las tres acciones.
+- **Teclado.** El Tabulador ya no se escapa de las hojas ni de las alertas; Escape en una alerta sobre una ficha cierra
+  solo la alerta y el foco vuelve a donde estaba; los menús se recorren con las flechas y los controles segmentados son
+  una sola parada de Tab que cambia con las flechas.
+- **Tarjetas de grupo alineadas.** El resumen («6 personas · 3 H · 3 M») va siempre bajo el nombre, así todas las
+  tarjetas de una fila empiezan a la misma altura (también en la imagen y el PDF).
+- **Modo oscuro.** El segmento elegido se distingue del resto.
+- **Personas.** «Casada con Jorge» en vez de «Casado/a» cuando se sabe el sexo; los detalles largos terminan en «…» y la
+  lista ya no desborda a 320 px.
+
 ## 0.5.0
 
 - **Nombre del reparto al crear.** Crear pide el nombre (si se deja vacío, «Grupos del <fecha>») y, al generar, el
