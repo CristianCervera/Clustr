@@ -211,14 +211,21 @@
     "headsSetName": "{name} · por cabezas",
     "headsCreated": "Reparto por cabezas creado",
     "regenerateHeadsBody": "Se volverá a repartir al resto con los mismos criterios. Cada cabeza sigue al frente de un grupo, con el nombre que tenga. Se pierden los cambios hechos a mano.",
-    "leaders": "Un responsable en cada grupo",
     "leadersHint": "El primero de cada grupo queda como cabeza; si es un matrimonio, los dos.",
     "headsKeepCouples": "No separar",
     "headsSplitCouples": "Separar",
     "headsKeepCouplesHint": "Un matrimonio del grupo elegido encabeza junto un mismo grupo, y el cónyuge de un cabeza va con él.",
     "headsSplitCouplesHint": "Cada persona del grupo elegido encabeza su propio grupo, y los matrimonios van en grupos distintos.",
     "headsChoose": "Grupo de cabezas",
-    "headsOneGroup": "Saldría 1 grupo"
+    "headsOneGroup": "Saldría 1 grupo",
+    "leadersTitle": "Responsables",
+    "leadersNone": "Ninguno",
+    "leadersRandom": "Al azar",
+    "leadersChoose": "Elegir",
+    "leadersChosen": "Ninguno elegido | 1 elegido | {n} elegidos",
+    "leadersChooseHint": "Sale un grupo por responsable y el resto se reparte entre ellos. Al elegir a una persona casada, su cónyuge también es responsable de ese grupo.",
+    "leadersNotEnough": "Elige al menos 2 responsables y deja a alguien para repartir.",
+    "oneGroupPerLeader": "Un grupo por responsable"
   },
   "profile": {
     "title": "Perfil",

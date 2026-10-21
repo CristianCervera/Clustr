@@ -211,14 +211,21 @@
     "headsSetName": "{name} · per capogruppo",
     "headsCreated": "Suddivisione per capogruppo creata",
     "regenerateHeadsBody": "Gli altri verranno divisi di nuovo con gli stessi criteri. Ogni capogruppo resta alla guida di un gruppo, con il suo nome. Le modifiche fatte a mano si perdono.",
-    "leaders": "Un capogruppo per gruppo",
     "leadersHint": "Il primo di ogni gruppo diventa capogruppo; se è una coppia sposata, lo sono entrambi.",
     "headsKeepCouples": "Non separare",
     "headsSplitCouples": "Separare",
     "headsKeepCouplesHint": "Una coppia sposata del gruppo scelto guida insieme un solo gruppo, e il coniuge di un capogruppo va con lui.",
     "headsSplitCouplesHint": "Ogni persona del gruppo scelto guida il proprio gruppo, e le coppie sposate vanno in gruppi diversi.",
     "headsChoose": "Gruppo dei capigruppo",
-    "headsOneGroup": "Uscirebbe 1 gruppo"
+    "headsOneGroup": "Uscirebbe 1 gruppo",
+    "leadersTitle": "Capigruppo",
+    "leadersNone": "Nessuno",
+    "leadersRandom": "A caso",
+    "leadersChoose": "Scegli",
+    "leadersChosen": "Nessuno scelto | 1 scelto | {n} scelti",
+    "leadersChooseHint": "C’è un gruppo per capogruppo e gli altri vengono divisi tra loro. Scegliendo una persona sposata, anche il coniuge guida lo stesso gruppo.",
+    "leadersNotEnough": "Scegli almeno 2 capigruppo e lascia qualcuno da dividere.",
+    "oneGroupPerLeader": "Un gruppo per capogruppo"
   },
   "profile": {
     "title": "Profilo",

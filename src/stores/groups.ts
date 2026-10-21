@@ -76,13 +76,19 @@ export const useGroupsStore = defineStore('groups', () => {
     setsLoaded.value = true
   }
 
-  const generate = (preferences: GroupPreferences, personIds?: string[]) =>
-    api<{ groups: Person[][] }>('/groups/generate', { method: 'POST', body: { preferences, ...(personIds ? { personIds } : {}) } })
+  const generate = (preferences: GroupPreferences, personIds?: string[], headIds?: string[]) =>
+    api<{ groups: Person[][] }>('/groups/generate', {
+      method: 'POST',
+      body: { preferences, ...(personIds ? { personIds } : {}), ...(headIds?.length ? { headIds } : {}) },
+    })
 
-  /** Genera los grupos con quienes participan y los guarda en un reparto con ese nombre. */
-  async function createSet(preferences: GroupPreferences, name: string) {
-    const { groups } = await generate(preferences)
-    const heads = preferences.leaders ? pickLeaders(groups) : []
+  /**
+   * Genera los grupos con quienes participan y los guarda en un reparto con ese nombre. Con `headIds`,
+   * hay un grupo por responsable elegido y el resto se reparte entre ellos.
+   */
+  async function createSet(preferences: GroupPreferences, name: string, headIds?: string[]) {
+    const { groups } = await generate(preferences, undefined, headIds)
+    const heads = headIds?.length ? headIds : preferences.leaders ? pickLeaders(groups) : []
     return upsert(
       await api<GroupSet>('/group-sets', {
         method: 'POST',

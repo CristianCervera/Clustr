@@ -1,5 +1,13 @@
 # Novedades
 
+## 0.12.0
+
+- **Elegir a los responsables.** En Crear, la sección Responsables tiene tres opciones: Ninguno, Al azar o Elegir. Con
+  Elegir se marcan en una lista; sale un grupo por responsable y el resto se reparte entre ellos.
+- **El matrimonio va junto.** Al marcar a una persona casada se marca también su cónyuge, y los dos encabezan el mismo
+  grupo.
+- La sección Responsables sube justo debajo de Participantes, porque decide cuántos grupos salen.
+
 ## 0.11.0
 
 - **Renombrar y eliminar desde la lista.** En Grupos, cada reparto tiene un botón «⋯» con Renombrar y Eliminar reparto

@@ -211,14 +211,21 @@
     "headsSetName": "{name} · by leaders",
     "headsCreated": "Leader split created",
     "regenerateHeadsBody": "Everyone else will be split again with the same criteria. Each leader keeps leading a group, with its name. Manual changes are lost.",
-    "leaders": "A Leader in Each Group",
     "leadersHint": "The first person in each group becomes its leader; if it’s a married couple, both do.",
     "headsKeepCouples": "Keep Together",
     "headsSplitCouples": "Split Up",
     "headsKeepCouplesHint": "A married couple in the chosen group leads one group together, and a leader’s spouse joins their group.",
     "headsSplitCouplesHint": "Each person in the chosen group leads their own group, and married couples go to different groups.",
     "headsChoose": "Leaders’ group",
-    "headsOneGroup": "Only 1 group"
+    "headsOneGroup": "Only 1 group",
+    "leadersTitle": "Leaders",
+    "leadersNone": "None",
+    "leadersRandom": "Random",
+    "leadersChoose": "Choose",
+    "leadersChosen": "None chosen | 1 chosen | {n} chosen",
+    "leadersChooseHint": "There is one group per leader and everyone else is split among them. Choosing a married person makes their spouse a leader of the same group too.",
+    "leadersNotEnough": "Choose at least 2 leaders and leave someone to split.",
+    "oneGroupPerLeader": "One group per leader"
   },
   "profile": {
     "title": "Profile",

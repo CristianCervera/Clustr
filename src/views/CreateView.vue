@@ -2,7 +2,8 @@
 import { computed, onMounted, reactive, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router'
-import { ChevronRight, Sparkles, Users } from 'lucide-vue-next'
+import { ChevronRight, Crown, Sparkles, Users } from 'lucide-vue-next'
+import LeadersSheet from '@/components/groups/LeadersSheet.vue'
 import ParticipantsSheet from '@/components/groups/ParticipantsSheet.vue'
 import EmptyState from '@/components/ui/EmptyState.vue'
 import ListSection from '@/components/ui/ListSection.vue'
@@ -54,14 +55,43 @@ const maxValue = computed(() => Math.max(1, participants.value.length))
 watch(maxValue, (max) => {
   if (prefs.value > max) prefs.value = max
 })
-const estimate = computed(() => estimateGroups(participants.value, prefs))
+
+// Responsables: ninguno, el primero de cada grupo al azar, o elegidos a mano (un grupo por responsable).
+const leaderMode = ref<'none' | 'random' | 'choose'>(prefs.leaders ? 'random' : 'none')
+watch(
+  () => auth.user?.preferences?.leaders,
+  (saved) => {
+    if (leaderMode.value !== 'choose') leaderMode.value = saved ? 'random' : 'none'
+  },
+)
+watch(leaderMode, (mode) => (prefs.leaders = mode === 'random'))
+const chosenHeads = ref<string[]>([])
+const leadersOpen = ref(false)
+/** Solo cuentan los elegidos que siguen participando. */
+const heads = computed(() => chosenHeads.value.filter((id) => participants.value.some((p) => p.id === id)))
+/** Grupos que saldrán: un matrimonio elegido encabeza uno solo. */
+const headUnits = computed(() => {
+  const pairs = participants.value.filter((p) => heads.value.includes(p.id) && p.spouseId && heads.value.includes(p.spouseId)).length / 2
+  return heads.value.length - pairs
+})
+const choosing = computed(() => leaderMode.value === 'choose')
+const canGenerate = computed(() =>
+  choosing.value ? headUnits.value >= 2 && participants.value.length > heads.value.length : participants.value.length >= 2,
+)
+
+const estimate = computed(() => {
+  if (!choosing.value) return estimateGroups(participants.value, prefs)
+  const total = participants.value.length
+  const groups = Math.max(headUnits.value, 0)
+  return groups ? { groups, min: Math.floor(total / groups), max: Math.ceil(total / groups) } : { groups: 0, min: 0, max: 0 }
+})
 
 const generating = ref(false)
 /** Genera los grupos y los guarda directamente como un reparto con su nombre. */
 async function generate() {
   generating.value = true
   try {
-    const set = await groups.createSet({ ...prefs }, setName.value.trim() || defaultName.value)
+    const set = await groups.createSet({ ...prefs }, setName.value.trim() || defaultName.value, choosing.value ? heads.value : undefined)
     if (auth.user) auth.user.preferences = { ...prefs }
     setName.value = ''
     await router.push(`/groups/${set.id}`)
@@ -109,21 +139,48 @@ const participantsOpen = ref(false)
         </button>
       </ListSection>
 
-      <ListSection :title="t('groups.criteria')" :footer="estimate.groups ? t('groups.estimate', { groups: estimate.groups, min: estimate.min, max: estimate.max }, estimate.min === estimate.max ? 1 : 2) : undefined">
+      <ListSection :title="t('groups.leadersTitle')" :footer="leaderMode === 'random' ? t('groups.leadersHint') : choosing ? t('groups.leadersChooseHint') : undefined">
         <div class="px-4 py-3">
           <SegmentedControl
-            v-model="prefs.mode"
-            :label="t('groups.criteria')"
+            v-model="leaderMode"
+            :label="t('groups.leadersTitle')"
             :options="[
-              { value: 'count', label: t('groups.modeCount') },
-              { value: 'size', label: t('groups.modeSize') },
+              { value: 'none', label: t('groups.leadersNone') },
+              { value: 'random', label: t('groups.leadersRandom') },
+              { value: 'choose', label: t('groups.leadersChoose') },
             ]"
           />
         </div>
-        <div class="flex min-h-[60px] items-center justify-between gap-3 px-4 py-2">
-          <span>{{ prefs.mode === 'count' ? t('groups.groupsValue') : t('groups.sizeValue') }}</span>
-          <StepperControl v-model="prefs.value" :label="prefs.mode === 'count' ? t('groups.modeCount') : t('groups.modeSize')" :max="maxValue" />
-        </div>
+        <button v-if="choosing" type="button" class="flex min-h-[60px] w-full items-center gap-3 px-4 text-left" @click="leadersOpen = true">
+          <span class="grid h-9 w-9 place-items-center rounded-xl bg-accent-soft text-accent"><Crown :size="20" aria-hidden="true" /></span>
+          <span class="flex-1">
+            <span class="block font-medium">{{ t('groups.leadersTitle') }}</span>
+            <span class="block text-[0.875rem] text-ink-2">{{ t('groups.leadersChosen', heads.length) }}</span>
+          </span>
+          <span class="text-accent">{{ t('groups.choose') }}</span>
+          <ChevronRight :size="18" class="text-ink-2/60" aria-hidden="true" />
+        </button>
+      </ListSection>
+
+      <ListSection :title="t('groups.criteria')" :footer="estimate.groups ? t('groups.estimate', { groups: estimate.groups, min: estimate.min, max: estimate.max }, estimate.min === estimate.max ? 1 : 2) : undefined">
+        <!-- Con responsables elegidos, el número de grupos lo marcan ellos. -->
+        <div v-if="choosing" class="flex min-h-[52px] items-center px-4 py-2 text-ink-2">{{ t('groups.oneGroupPerLeader') }}</div>
+        <template v-else>
+          <div class="px-4 py-3">
+            <SegmentedControl
+              v-model="prefs.mode"
+              :label="t('groups.criteria')"
+              :options="[
+                { value: 'count', label: t('groups.modeCount') },
+                { value: 'size', label: t('groups.modeSize') },
+              ]"
+            />
+          </div>
+          <div class="flex min-h-[60px] items-center justify-between gap-3 px-4 py-2">
+            <span>{{ prefs.mode === 'count' ? t('groups.groupsValue') : t('groups.sizeValue') }}</span>
+            <StepperControl v-model="prefs.value" :label="prefs.mode === 'count' ? t('groups.modeCount') : t('groups.modeSize')" :max="maxValue" />
+          </div>
+        </template>
       </ListSection>
 
       <ListSection :title="t('groups.couples')">
@@ -147,17 +204,15 @@ const participantsOpen = ref(false)
         <SwitchRow v-model="prefs.balanceAge" :label="t('groups.balanceAge')" :hint="t('groups.balanceAgeHint')" />
       </ListSection>
 
-      <ListSection>
-        <SwitchRow v-model="prefs.leaders" :label="t('groups.leaders')" :hint="t('groups.leadersHint')" />
-      </ListSection>
-
-      <button type="button" class="btn-primary mb-8 w-full !min-h-[52px] text-[1.0625rem]" :disabled="generating || participants.length < 2" @click="generate">
+      <button type="button" class="btn-primary mb-8 w-full !min-h-[52px] text-[1.0625rem]" :disabled="generating || !canGenerate" @click="generate">
         <Sparkles :size="20" aria-hidden="true" />
         {{ generating ? t('groups.generating') : t('groups.generate') }}
       </button>
       <p v-if="participants.length < 2" class="-mt-6 mb-8 px-4 text-center text-[0.875rem] text-ink-2">{{ t('groups.notEnough') }}</p>
+      <p v-else-if="!canGenerate" class="-mt-6 mb-8 px-4 text-center text-[0.875rem] text-ink-2">{{ t('groups.leadersNotEnough') }}</p>
     </div>
 
     <ParticipantsSheet :open="participantsOpen" @close="participantsOpen = false" />
+    <LeadersSheet v-model="chosenHeads" :open="leadersOpen" :people="participants" @close="leadersOpen = false" />
   </div>
 </template>
