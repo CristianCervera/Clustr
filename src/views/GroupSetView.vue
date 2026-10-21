@@ -126,10 +126,10 @@ async function rename() {
 const headsOpen = ref(false)
 const creatingHeads = ref(false)
 const total = computed(() => set.value?.groups.flat().length ?? 0)
-// Se pregunta si los matrimonios se separan; parte del criterio que ya tiene el reparto.
-const headsCouples = ref<'together' | 'apart'>('together')
+// Se pregunta si los matrimonios se separan; por defecto, separarlos.
+const headsCouples = ref<'together' | 'apart'>('apart')
 function openHeads() {
-  headsCouples.value = set.value?.preferences.couples === 'apart' ? 'apart' : 'together'
+  headsCouples.value = 'apart'
   headsOpen.value = true
 }
 /** Grupos que saldrían: con los matrimonios juntos, un matrimonio del grupo encabeza uno solo. */

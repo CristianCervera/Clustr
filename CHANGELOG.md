@@ -1,5 +1,10 @@
 # Novedades
 
+## 0.13.0
+
+- **Separar matrimonios, por defecto.** Al repartir por cabezas, la opción marcada al abrir es Separar; antes partía
+  del criterio del reparto. No separar se puede elegir igual.
+
 ## 0.12.0
 
 - **Elegir a los responsables.** En Crear, la sección Responsables tiene tres opciones: Ninguno, Al azar o Elegir. Con
