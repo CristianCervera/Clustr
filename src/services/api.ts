@@ -1,3 +1,5 @@
+import { ref } from 'vue'
+
 const BASE_URL = (import.meta.env.VITE_API_URL as string | undefined) ?? 'http://localhost:3100/api'
 const TOKEN_KEY = 'clustr.token'
 
@@ -35,12 +37,24 @@ export function setToken(value: string | null) {
 
 export const getToken = () => token
 
+/** Peticiones en curso: el indicador de carga las sigue para aparecer y desaparecer. */
+export const pendingRequests = ref(0)
+
 /** Se llama cuando el servidor rechaza el token (sesión caducada o cuenta borrada). */
 export function handleUnauthorized(handler: () => void) {
   onUnauthorized = handler
 }
 
 export async function api<T = unknown>(path: string, init: { method?: string; body?: unknown } = {}): Promise<T> {
+  pendingRequests.value++
+  try {
+    return await request<T>(path, init)
+  } finally {
+    pendingRequests.value--
+  }
+}
+
+async function request<T>(path: string, init: { method?: string; body?: unknown }): Promise<T> {
   let res: Response
   try {
     res = await fetch(`${BASE_URL}${path}`, {

@@ -24,7 +24,8 @@
     "back": "Atrás",
     "more": "Más opciones",
     "networkError": "No hay conexión con el servidor. Comprueba tu conexión e inténtalo de nuevo.",
-    "genericError": "Algo ha fallado. Inténtalo de nuevo."
+    "genericError": "Algo ha fallado. Inténtalo de nuevo.",
+    "slowRequest": "Tarda más de lo normal…"
   },
   "auth": {
     "tagline": "Organiza a tu gente en grupos equilibrados en segundos.",

@@ -1,5 +1,12 @@
 # Novedades
 
+## 0.10.0
+
+- **Loader propio.** Mientras hay peticiones en curso sale arriba una cápsula con el logo animado: los nodos llegan
+  sueltos, se agrupan en la «C» y el hilo los une, como hace la app con las personas. No aparece en las peticiones
+  rápidas (menos de 300 ms) y, si algo tarda más de 4 s, avisa: «Tarda más de lo normal…».
+- Con «reducir movimiento», los nodos no se mueven: se iluminan uno tras otro.
+
 ## 0.9.0
 
 - **Un responsable en cada grupo.** Crear tiene un interruptor nuevo: el primero de cada grupo queda como cabeza y, si es

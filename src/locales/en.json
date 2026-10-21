@@ -24,7 +24,8 @@
     "back": "Back",
     "more": "More options",
     "networkError": "Can't reach the server. Check your connection and try again.",
-    "genericError": "Something went wrong. Try again."
+    "genericError": "Something went wrong. Try again.",
+    "slowRequest": "Taking longer than usual…"
   },
   "auth": {
     "tagline": "Sort your people into balanced groups in seconds.",

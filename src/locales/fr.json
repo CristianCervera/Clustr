@@ -24,7 +24,8 @@
     "back": "Retour",
     "more": "Plus d'options",
     "networkError": "Impossible de joindre le serveur. Vérifiez votre connexion et réessayez.",
-    "genericError": "Un problème est survenu. Réessayez."
+    "genericError": "Un problème est survenu. Réessayez.",
+    "slowRequest": "Plus long que d’habitude…"
   },
   "auth": {
     "tagline": "Répartissez vos proches en groupes équilibrés en quelques secondes.",

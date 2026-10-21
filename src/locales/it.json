@@ -24,7 +24,8 @@
     "back": "Indietro",
     "more": "Altre opzioni",
     "networkError": "Impossibile raggiungere il server. Controlla la connessione e riprova.",
-    "genericError": "Qualcosa è andato storto. Riprova."
+    "genericError": "Qualcosa è andato storto. Riprova.",
+    "slowRequest": "Ci vuole più del solito…"
   },
   "auth": {
     "tagline": "Organizza le tue persone in gruppi equilibrati in pochi secondi.",

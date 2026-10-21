@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useUiStore } from '@/stores/ui'
+import RequestIndicator from './RequestIndicator.vue'
 
 const ui = useUiStore()
 </script>
@@ -11,6 +12,8 @@ const ui = useUiStore()
     role="status"
     aria-live="polite"
   >
+    <!-- El aviso de carga va en la misma columna que los mensajes: así no se pisan. -->
+    <RequestIndicator />
     <TransitionGroup
       enter-from-class="-translate-y-3 opacity-0"
       leave-to-class="opacity-0"
