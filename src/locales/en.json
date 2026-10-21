@@ -203,13 +203,21 @@
     "occasionalCount": "1 occasional | {n} occasional",
     "head": "Leader",
     "headsMenu": "Split by Leaders",
-    "headsIntro": "Choose a group: each of its people will lead a new group, and everyone else will be split among them using this set’s criteria. A separate set is created; this one stays as it is.",
+    "headsIntro": "Choose a group: its people will lead the new groups, and everyone else will be split among them using this set’s criteria. A separate set is created; this one stays as it is.",
     "headsResult": "1 group | {n} groups",
     "headsNeedTwo": "Needs 2 or more",
     "headsNoRest": "No one else left",
     "headsSetName": "{name} · by leaders",
     "headsCreated": "Leader split created",
-    "regenerateHeadsBody": "Everyone else will be split again with the same criteria. Each leader keeps leading a group, with its name. Manual changes are lost."
+    "regenerateHeadsBody": "Everyone else will be split again with the same criteria. Each leader keeps leading a group, with its name. Manual changes are lost.",
+    "leaders": "A Leader in Each Group",
+    "leadersHint": "The first person in each group becomes its leader; if it’s a married couple, both do.",
+    "headsKeepCouples": "Keep Together",
+    "headsSplitCouples": "Split Up",
+    "headsKeepCouplesHint": "A married couple in the chosen group leads one group together, and a leader’s spouse joins their group.",
+    "headsSplitCouplesHint": "Each person in the chosen group leads their own group, and married couples go to different groups.",
+    "headsChoose": "Leaders’ group",
+    "headsOneGroup": "Only 1 group"
   },
   "profile": {
     "title": "Profile",

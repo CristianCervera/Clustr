@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { layoutOf, moveMember, spouseIn } from '../groups'
-import type { GroupSet, Member } from '@/types'
+import { layoutOf, moveMember, pickLeaders, spouseIn } from '../groups'
+import type { GroupSet, Member, Person } from '@/types'
 
 const m = (id: string): Member => ({
   personId: id,
@@ -42,5 +42,13 @@ describe('repartos', () => {
     const set = setOf([[a, b], [c], [d]], ['', 'Solo', ''])
     // c y d se van al primer grupo; el suyo se queda vacío y desaparece con su nombre.
     expect(moveMember(set, [c, d], 0)).toEqual({ layout: [[0, 1, 2, 3]], groupNames: [''] })
+  })
+
+  it('elige un responsable por grupo y, si es un matrimonio del grupo, los dos', () => {
+    const p = (id: string, spouseId: string | null = null) => ({ id, spouseId }) as Person
+    const groups = [[p('a', 'b'), p('b', 'a'), p('c')], [p('d', 'x'), p('e')]]
+    // rng 0: el primero de cada grupo. «a» está casada con «b» (mismo grupo); el cónyuge de «d» no está.
+    expect(pickLeaders(groups, () => 0)).toEqual(['a', 'b', 'd'])
+    expect(pickLeaders(groups, () => 0.99)).toEqual(['c', 'e'])
   })
 })

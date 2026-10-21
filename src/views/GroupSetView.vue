@@ -8,6 +8,7 @@ import GroupGrid from '@/components/groups/GroupGrid.vue'
 import GroupNameSheet from '@/components/groups/GroupNameSheet.vue'
 import AppSheet from '@/components/ui/AppSheet.vue'
 import MenuButton from '@/components/ui/MenuButton.vue'
+import SegmentedControl from '@/components/ui/SegmentedControl.vue'
 import { useErrorText } from '@/composables/useErrorText'
 import { useFormatDate } from '@/composables/useFormatDate'
 import { fullName, type GroupMember } from '@/services/people'
@@ -125,12 +126,21 @@ async function rename() {
 const headsOpen = ref(false)
 const creatingHeads = ref(false)
 const total = computed(() => set.value?.groups.flat().length ?? 0)
-const canLead = (group: Member[]) => group.length >= 2 && total.value > group.length
+// Se pregunta si los matrimonios se separan; parte del criterio que ya tiene el reparto.
+const headsCouples = ref<'together' | 'apart'>('together')
+function openHeads() {
+  headsCouples.value = set.value?.preferences.couples === 'apart' ? 'apart' : 'together'
+  headsOpen.value = true
+}
+/** Grupos que saldrían: con los matrimonios juntos, un matrimonio del grupo encabeza uno solo. */
+const headsCount = (group: Member[]) =>
+  headsCouples.value === 'apart' ? group.length : group.length - group.filter((m) => m.spouseId && group.some((o) => o.personId === m.spouseId)).length / 2
+const canLead = (group: Member[]) => group.length >= 2 && total.value > group.length && headsCount(group) >= 2
 async function createHeads(index: number) {
   if (!set.value) return
   creatingHeads.value = true
   try {
-    const created = await store.createHeadsSet(set.value.id, index, t('groups.headsSetName', { name: set.value.name }).slice(0, 80))
+    const created = await store.createHeadsSet(set.value.id, index, t('groups.headsSetName', { name: set.value.name }).slice(0, 80), headsCouples.value)
     headsOpen.value = false
     ui.toast(t('groups.headsCreated'))
     await router.push(`/groups/${created.id}`)
@@ -168,7 +178,7 @@ const menu = computed(() => [
       renameOpen.value = true
     },
   },
-  { label: t('groups.headsMenu'), icon: Crown, action: () => (headsOpen.value = true) },
+  { label: t('groups.headsMenu'), icon: Crown, action: openHeads },
   { label: t('groups.deleteSet'), icon: Trash2, destructive: true, action: remove },
 ])
 </script>
@@ -216,6 +226,19 @@ const menu = computed(() => [
 
     <AppSheet :open="headsOpen" :title="t('groups.headsMenu')" @close="headsOpen = false">
       <p class="px-1 pb-3 pt-2 text-[0.9375rem] text-ink-2">{{ t('groups.headsIntro') }}</p>
+      <h3 class="section-title">{{ t('groups.couples') }}</h3>
+      <div class="mb-1 rounded-2xl bg-surface px-4 py-3">
+        <SegmentedControl
+          v-model="headsCouples"
+          :label="t('groups.couples')"
+          :options="[
+            { value: 'together', label: t('groups.headsKeepCouples') },
+            { value: 'apart', label: t('groups.headsSplitCouples') },
+          ]"
+        />
+      </div>
+      <p class="mb-5 px-4 text-[0.8125rem] text-ink-2">{{ headsCouples === 'together' ? t('groups.headsKeepCouplesHint') : t('groups.headsSplitCouplesHint') }}</p>
+      <h3 class="section-title">{{ t('groups.headsChoose') }}</h3>
       <ul v-if="set" class="divide-y divide-line overflow-hidden rounded-2xl bg-surface">
         <li v-for="(group, i) in set.groups" :key="i">
           <button
@@ -229,7 +252,7 @@ const menu = computed(() => [
               <span class="block truncate text-[0.875rem] text-ink-2">{{ group.map((m) => m.firstName).join(', ') }}</span>
             </span>
             <span class="shrink-0 text-[0.875rem] text-ink-2">
-              {{ group.length < 2 ? t('groups.headsNeedTwo') : !canLead(group) ? t('groups.headsNoRest') : t('groups.headsResult', group.length) }}
+              {{ group.length < 2 ? t('groups.headsNeedTwo') : total <= group.length ? t('groups.headsNoRest') : headsCount(group) < 2 ? t('groups.headsOneGroup') : t('groups.headsResult', headsCount(group)) }}
             </span>
           </button>
         </li>

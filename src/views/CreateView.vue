@@ -147,6 +147,10 @@ const participantsOpen = ref(false)
         <SwitchRow v-model="prefs.balanceAge" :label="t('groups.balanceAge')" :hint="t('groups.balanceAgeHint')" />
       </ListSection>
 
+      <ListSection>
+        <SwitchRow v-model="prefs.leaders" :label="t('groups.leaders')" :hint="t('groups.leadersHint')" />
+      </ListSection>
+
       <button type="button" class="btn-primary mb-8 w-full !min-h-[52px] text-[1.0625rem]" :disabled="generating || participants.length < 2" @click="generate">
         <Sparkles :size="20" aria-hidden="true" />
         {{ generating ? t('groups.generating') : t('groups.generate') }}

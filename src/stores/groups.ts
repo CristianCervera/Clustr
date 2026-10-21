@@ -11,6 +11,7 @@ export const DEFAULT_PREFERENCES: GroupPreferences = {
   balanceAge: false,
   mixMarital: true,
   spreadOccasional: true,
+  leaders: false,
 }
 
 /** Antes los grupos sin guardar se recordaban en el navegador; ahora todo reparto se guarda. */
@@ -47,6 +48,19 @@ export function moveMember(set: GroupSet, member: Member | Member[], toGroup: nu
   return { layout: layoutOf(kept.map(({ g }) => g), set.groups.flat()), groupNames: kept.map(({ name }) => name) }
 }
 
+/**
+ * Responsables de cada grupo: el primero de cada uno (al azar) y, si su cónyuge va en el mismo
+ * grupo, también él. Devuelve sus ids.
+ */
+export function pickLeaders(groups: Person[][], rng: () => number = Math.random): string[] {
+  return groups.flatMap((group) => {
+    const first = group[Math.floor(rng() * group.length)]
+    if (!first) return []
+    const spouse = group.find((p) => first.spouseId && p.id === first.spouseId)
+    return spouse ? [first.id, spouse.id] : [first.id]
+  })
+}
+
 export const useGroupsStore = defineStore('groups', () => {
   const sets = ref<GroupSet[]>([])
   const setsLoaded = ref(false)
@@ -68,10 +82,11 @@ export const useGroupsStore = defineStore('groups', () => {
   /** Genera los grupos con quienes participan y los guarda en un reparto con ese nombre. */
   async function createSet(preferences: GroupPreferences, name: string) {
     const { groups } = await generate(preferences)
+    const heads = preferences.leaders ? pickLeaders(groups) : []
     return upsert(
       await api<GroupSet>('/group-sets', {
         method: 'POST',
-        body: { name, preferences, groups: groups.map((g) => g.map((p) => p.id)) },
+        body: { name, preferences, groups: groups.map((g) => g.map((p) => p.id)), heads },
       }),
     )
   }
@@ -94,8 +109,8 @@ export const useGroupsStore = defineStore('groups', () => {
   }
 
   /** Crea un reparto nuevo en el que cada miembro del grupo elegido encabeza un grupo con el resto. */
-  async function createHeadsSet(id: string, group: number, name: string) {
-    return upsert(await api<GroupSet>(`/group-sets/${id}/heads`, { method: 'POST', body: { group, name } }))
+  async function createHeadsSet(id: string, group: number, name: string, couples: 'together' | 'apart') {
+    return upsert(await api<GroupSet>(`/group-sets/${id}/heads`, { method: 'POST', body: { group, name, couples } }))
   }
 
   async function getSet(id: string) {

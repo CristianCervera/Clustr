@@ -203,13 +203,21 @@
     "occasionalCount": "1 ocasional | {n} ocasionales",
     "head": "Cabeza",
     "headsMenu": "Repartir por cabezas",
-    "headsIntro": "Elige un grupo: cada una de sus personas será cabeza de un grupo nuevo y el resto se repartirá entre ellos con los criterios de este reparto. Se crea un reparto aparte; este no cambia.",
+    "headsIntro": "Elige un grupo: sus personas serán las cabezas de los grupos nuevos y el resto se repartirá entre ellos con los criterios de este reparto. Se crea un reparto aparte; este no cambia.",
     "headsResult": "1 grupo | {n} grupos",
     "headsNeedTwo": "Necesita 2 o más",
     "headsNoRest": "No queda nadie fuera",
     "headsSetName": "{name} · por cabezas",
     "headsCreated": "Reparto por cabezas creado",
-    "regenerateHeadsBody": "Se volverá a repartir al resto con los mismos criterios. Cada cabeza sigue al frente de un grupo, con el nombre que tenga. Se pierden los cambios hechos a mano."
+    "regenerateHeadsBody": "Se volverá a repartir al resto con los mismos criterios. Cada cabeza sigue al frente de un grupo, con el nombre que tenga. Se pierden los cambios hechos a mano.",
+    "leaders": "Un responsable en cada grupo",
+    "leadersHint": "El primero de cada grupo queda como cabeza; si es un matrimonio, los dos.",
+    "headsKeepCouples": "No separar",
+    "headsSplitCouples": "Separar",
+    "headsKeepCouplesHint": "Un matrimonio del grupo elegido encabeza junto un mismo grupo, y el cónyuge de un cabeza va con él.",
+    "headsSplitCouplesHint": "Cada persona del grupo elegido encabeza su propio grupo, y los matrimonios van en grupos distintos.",
+    "headsChoose": "Grupo de cabezas",
+    "headsOneGroup": "Saldría 1 grupo"
   },
   "profile": {
     "title": "Perfil",

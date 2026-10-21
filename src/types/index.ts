@@ -10,6 +10,8 @@ export interface GroupPreferences {
   balanceAge: boolean
   mixMarital: boolean
   spreadOccasional: boolean
+  /** Al crear, el primero de cada grupo (o su matrimonio) queda como cabeza del grupo. */
+  leaders: boolean
 }
 
 export interface User {

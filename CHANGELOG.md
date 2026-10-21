@@ -1,5 +1,13 @@
 # Novedades
 
+## 0.9.0
+
+- **Un responsable en cada grupo.** Crear tiene un interruptor nuevo: el primero de cada grupo queda como cabeza y, si es
+  un matrimonio, los dos. Se recuerda como el resto de criterios. «Volver a generar» mantiene a los responsables.
+- **Repartir por cabezas pregunta por los matrimonios.** «No separar»: un matrimonio del grupo elegido encabeza junto un
+  mismo grupo y el cónyuge de un cabeza va con él. «Separar»: cada uno encabeza su grupo y los matrimonios van en grupos
+  distintos. El número de grupos de cada opción se actualiza al elegir.
+
 ## 0.8.0
 
 - **Repartir por cabezas.** En el menú «⋯» de un reparto, elige un grupo: cada una de sus personas encabeza un grupo
